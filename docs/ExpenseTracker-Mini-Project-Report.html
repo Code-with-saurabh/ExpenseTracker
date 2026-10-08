@@ -1,0 +1,1543 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>ExpenseTracker — Mini Project Report (GTU / LIT Sarigam)</title>
+<style>
+  :root {
+    --ink: #1c1a17;
+    --muted: #5f584f;
+    --line: #d7d1c7;
+    --head: #3a2f27;
+    --accent: #78816a;
+    --tint: #f5f2ec;
+    --code-bg: #211d19;
+  }
+  * { box-sizing: border-box; }
+  html { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  body {
+    font-family: Georgia, "Times New Roman", serif;
+    color: var(--ink);
+    font-size: 15px;
+    line-height: 1.75;
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 40px 34px 90px;
+  }
+  h1, h2, h3, h4, h5 { font-family: Arial, Helvetica, sans-serif; color: var(--head); line-height: 1.35; }
+  h2 { font-size: 21px; margin: 46px 0 12px; padding-bottom: 6px; border-bottom: 2px solid var(--head); letter-spacing: .2px; }
+  h3 { font-size: 16.5px; margin: 26px 0 8px; }
+  h4 { font-size: 14.5px; margin: 18px 0 6px; color: #4a3e33; }
+  p { margin: 9px 0; text-align: justify; }
+  ul, ol { margin: 8px 0 14px; padding-left: 24px; }
+  li { margin: 5px 0; }
+  table { border-collapse: collapse; width: 100%; margin: 14px 0 18px; font-size: 13px; font-family: Arial, Helvetica, sans-serif; }
+  th, td { border: 1px solid var(--line); padding: 7px 9px; text-align: left; vertical-align: top; }
+  th { background: var(--tint); color: var(--head); font-weight: 700; }
+  td code, p code, li code { background: var(--tint); padding: 1px 5px; border-radius: 3px; font-size: 12.5px; }
+  pre {
+    background: var(--code-bg); color: #e9e2d8; padding: 14px 16px; border-radius: 6px;
+    overflow-x: auto; font-size: 12.2px; line-height: 1.55; font-family: Consolas, "Courier New", monospace;
+    border-left: 4px solid var(--accent);
+  }
+  pre code { background: none; padding: 0; color: inherit; }
+  .note { background: var(--tint); border-left: 4px solid var(--accent); padding: 9px 14px; margin: 14px 0; font-size: 14px; }
+  .cap { text-align: center; font-size: 12.5px; color: var(--muted); font-style: italic; margin: 6px 0 20px; font-family: Arial, sans-serif; }
+  figure { margin: 18px 0 6px; text-align: center; }
+  figure img { max-width: 100%; border: 1px solid var(--line); border-radius: 6px; box-shadow: 0 3px 12px rgba(0,0,0,.10); }
+  img.code { border-radius: 8px; }
+  .pb { page-break-before: always; }
+  .center { text-align: center; }
+  .small { font-size: 13px; color: var(--muted); }
+  h2, h3, h4, table, pre, figure, .note { page-break-inside: avoid; }
+  .figindex { page-break-inside: auto; }
+  a { color: #4a5a3f; }
+
+  /* ---------- Cover ---------- */
+  .cover { text-align: center; padding: 10px 0 34px; border-bottom: 3px double var(--head); margin-bottom: 26px; }
+  .cover .logos { display: flex; justify-content: center; align-items: center; gap: 34px; margin-bottom: 8px; }
+  .cover .logos img { height: 92px; }
+  .cover .uni { font-family: Arial, sans-serif; font-size: 13.5px; letter-spacing: 1.4px; text-transform: uppercase; color: var(--muted); margin: 6px 0 2px; }
+  .cover .inst { font-family: Arial, sans-serif; font-size: 15.5px; font-weight: 700; color: var(--head); }
+  .cover .dept { font-family: Arial, sans-serif; font-size: 13px; color: var(--muted); }
+  .cover .rule { width: 70%; height: 2px; background: var(--head); margin: 22px auto; }
+  .cover .kicker { font-family: Arial, sans-serif; font-size: 13px; letter-spacing: 3px; text-transform: uppercase; color: var(--accent); }
+  .cover h1 { font-size: 40px; margin: 10px 0 6px; letter-spacing: .5px; }
+  .cover h2 { border: none; font-size: 18px; font-weight: 600; color: var(--muted); margin: 0 0 6px; }
+  .cover .meta { font-family: Arial, sans-serif; font-size: 13.5px; color: var(--muted); }
+  .sig-row { display: flex; justify-content: space-between; margin-top: 70px; font-family: Arial, sans-serif; font-size: 13.5px; }
+  .sig { border-top: 1px solid var(--ink); padding-top: 5px; min-width: 190px; text-align: center; }
+  .cert-box { border: 2px solid var(--head); padding: 26px 30px; margin: 20px 0; }
+  .cert-box p { text-align: justify; }
+  .toc td { border: none; padding: 4px 6px; font-size: 13.5px; }
+  .toc td.num { width: 46px; color: var(--muted); }
+  .toc td.pg { width: 52px; text-align: right; color: var(--muted); }
+  .two { display: flex; gap: 18px; }
+  .two > div { flex: 1; }
+  @media print {
+    body { padding: 0; font-size: 12.6px; max-width: none; }
+    h2 { font-size: 17px; margin-top: 26px; }
+    figure img { box-shadow: none; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ============================ COVER ============================ -->
+<div class="cover">
+  <div class="logos">
+    <img src="images/gtu-logo.png" alt="GTU logo" />
+    <img src="images/lit-wordmark.png" alt="LIT wordmark" />
+  </div>
+  <div class="uni">Gujarat Technological University</div>
+  <div class="inst">Laxmi Institute of Technology (LIT), Sarigam — Laxmi Vidyapeeth</div>
+  <div class="dept">Department of Computer Science &amp; Engineering</div>
+
+  <div class="rule"></div>
+
+  <div class="kicker">A Mini Project Report</div>
+  <div class="meta" style="letter-spacing:4px;margin-top:8px;">ON</div>
+  <h1>"ExpenseTracker"</h1>
+  <h2>A Full-Stack MERN Personal Expense &amp; Budget Management System</h2>
+  <div class="meta">"Track every rupee."</div>
+
+  <div class="rule"></div>
+
+  <div class="center" style="font-family:Arial,sans-serif;font-size:14px;margin-bottom:14px;">
+    Submitted by<br />
+    <strong style="font-size:17px;letter-spacing:1px;">SHARMA SAURABH</strong><br />
+    Enrollment No. <strong>250863131007</strong><br />
+    Semester VII, Computer Science &amp; Engineering
+  </div>
+
+  <div class="kicker" style="line-height:1.9;">in partial fulfilment of the requirements for the degree of<br />Bachelor of Engineering in Computer Science &amp; Engineering</div>
+  <div class="center" style="font-family:Arial,sans-serif;font-size:14px;font-weight:700;color:var(--head);margin-top:8px;">
+    Gujarat Technological University<br />
+    <span style="font-weight:400;color:var(--muted);">Academic Year 2025 – 2026</span>
+  </div>
+
+  <table style="max-width:600px;margin:18px auto 0;text-align:left;font-size:12.5px;">
+    <tr><th style="width:38%">Project Guide</th><td>____________________ (Guide Name)</td></tr>
+    <tr><th>Head of Department</th><td>____________________</td></tr>
+    <tr><th>Institute</th><td>Laxmi Institute of Technology, Sarigam</td></tr>
+    <tr><th>Report Date</th><td>08 October 2026</td></tr>
+  </table>
+</div>
+
+<!-- ============================ CERTIFICATE ============================ -->
+<h2 class="pb">Certificate</h2>
+<div class="cert-box">
+  <p>This is to certify that the project entitled <strong>"ExpenseTracker — A Full-Stack MERN Personal Expense &amp; Budget Management System"</strong> is a bonafide work carried out by</p>
+  <p class="center"><strong>Sharma Saurabh</strong><br />Enrollment No. <strong>250863131007</strong></p>
+  <p>in partial fulfilment of the requirements for the award of the degree of Bachelor of Engineering in Computer Science &amp; Engineering, Gujarat Technological University, during the academic year 2025–2026 under the supervision of the project guide named below.</p>
+  <p>The work embodied in this report has been carried out at the Department of Computer Science &amp; Engineering, Laxmi Institute of Technology, Sarigam, and the results embodied in this report have not been submitted to any other institute for the award of any degree, diploma, fellowship or other similar title.</p>
+  <div class="sig-row">
+    <div class="sig">Project Guide</div>
+    <div class="sig">Head of Department</div>
+    <div class="sig">External Examiner</div>
+  </div>
+</div>
+
+<!-- ============================ DECLARATION ============================ -->
+<h2 class="pb">Declaration</h2>
+<div class="cert-box">
+  <p>I hereby declare that the project report entitled <strong>"ExpenseTracker — A Full-Stack MERN Personal Expense &amp; Budget Management System"</strong> submitted in partial fulfilment of the requirements for the degree of Bachelor of Engineering in Computer Science &amp; Engineering is a record of bonafide work carried out by me under the guidance of the project guide.</p>
+  <p>The work embodied in this report has not been submitted, either in whole or in part, to any other institute or university for the award of any degree, diploma, fellowship or other similar title.</p>
+  <p>All the information and data presented in this report, including the figures, screenshots, tables and source code, are the results of my own efforts during the course of this mini project and have been duly acknowledged wherever necessary.</p>
+  <div class="sig-row">
+    <div class="sig">Place: Sarigam<br />Date: 08 October 2026</div>
+    <div class="sig">Sharma Saurabh<br />Enrollment No. 250863131007</div>
+    <div class="sig">Project Guide<br />Signature &amp; Seal</div>
+  </div>
+</div>
+
+<!-- ============================ ACKNOWLEDGEMENT ============================ -->
+<h2>Acknowledgement</h2>
+<p>We would like to express our sincere gratitude to our project guide for the constant guidance, valuable suggestions and encouragement throughout the course of this mini project. Their insight into software engineering practice shaped the architecture and quality of this application.</p>
+<p>We are thankful to the Head of the Department of Computer Science &amp; Engineering, Laxmi Institute of Technology, Sarigam, and to all the teaching and non-teaching staff members who provided the infrastructure, laboratory facilities and a supportive environment required to complete this work.</p>
+<p>We also acknowledge Gujarat Technological University for the curriculum that gave us the opportunity to work on a real full-stack application, and our parents and friends for their moral support and motivation.</p>
+
+<!-- ============================ ABSTRACT ============================ -->
+<h2 class="pb">Abstract</h2>
+<p>Managing personal money with notebooks or scattered spreadsheets is slow, error-prone and gives no real picture of spending habits. <strong>ExpenseTracker</strong> is a web application built on the MERN stack — <strong>MongoDB, Express.js, React.js and Node.js</strong> — that lets a user record income and expenses, organise them into categories, set monthly budgets, track savings goals, automate recurring payments and understand spending through interactive charts and month-over-month reports.</p>
+<p>The system exposes a REST API secured with JWT authentication, uses a Redux-Toolkit-powered React front end and stores data in MongoDB. Beyond basic CRUD it provides smart de-duplicated notifications, monthly reporting with percentage change, CSV export, receipt uploads, tags, favorites, light/dark mode and eight selectable colour themes. All data is strictly per-user and every amount is validated on both the client and the server, so malformed values never reach the database. The application runs entirely on a local machine with two commands and depends on no third-party hosted service.</p>
+<p><strong>Keywords:</strong> MERN stack, personal finance, expense tracker, budget, savings goal, recurring expense, JWT authentication, Redux Toolkit, MongoDB aggregation, React, Express.</p>
+
+<h2 class="pb">Project Overview</h2>
+<p><strong>ExpenseTracker</strong> is a complete, working personal-finance web application built by a single developer as a Semester-VII mini project. A user signs up, records every income and expense, organises them into categories, sets a monthly limit per category, creates savings goals and recurring bills — and the application automatically reports where the money went through charts, budgets status and month-over-month comparisons.</p>
+
+<div class="two">
+  <div>
+    <h4>What the product does</h4>
+    <ul>
+      <li><strong>Record</strong> — income/expense entries with category, payment method, tags, notes, receipt image and favourite flag.</li>
+      <li><strong>Control</strong> — per-category monthly budgets that turn yellow at ≥80% and red at ≥100%, with warnings that never repeat.</li>
+      <li><strong>Automate</strong> — recurring bills post themselves as real transactions the moment they fall due.</li>
+      <li><strong>Save</strong> — savings goals with contributions, progress bars and a milestone alert at 100%.</li>
+      <li><strong>Understand</strong> — dashboard, five chart types, and a monthly report that says "you spent 48% less than last month".</li>
+      <li><strong>Export</strong> — one-click CSV download of any filtered list or month.</li>
+    </ul>
+  </div>
+  <div>
+    <h4>Project at a glance</h4>
+    <table>
+      <tr><th style="width:60%">Metric</th><th>Value</th></tr>
+      <tr><td>Architecture</td><td>3-tier (React ⇄ Express ⇄ MongoDB)</td></tr>
+      <tr><td>REST endpoints</td><td>41 (38 authenticated)</td></tr>
+      <tr><td>Database collections</td><td>7</td></tr>
+      <tr><td>Frontend pages / routes</td><td>11 pages / 12 routes</td></tr>
+      <tr><td>Redux slices</td><td>8</td></tr>
+      <tr><td>Colour themes + dark mode</td><td>8 + on/off</td></tr>
+      <tr><td>Reported test cases passed</td><td>20 / 20</td></tr>
+      <tr><td>Screens &amp; code figures in this report</td><td>15 + 7</td></tr>
+    </table>
+  </div>
+</div>
+
+<h4>Module snapshot</h4>
+<table>
+  <tr><th style="width:26%">Group</th><th>Modules</th></tr>
+  <tr><td><strong>Capture</strong></td><td>Authentication (JWT) · Transactions · Categories · Receipt upload · Favourites · Tags</td></tr>
+  <tr><td><strong>Control</strong></td><td>Monthly budgets · Budget notifications · Savings goals · Recurring expenses</td></tr>
+  <tr><td><strong>Insight</strong></td><td>Dashboard · Analytics (5 chart types) · Monthly reports · CSV export</td></tr>
+  <tr><td><strong>Platform</strong></td><td>REST API + security layer · Redux state · Theme engine (8 themes, dark mode) · UX polish (skeletons, empty states, micro-interactions)</td></tr>
+</table>
+
+<div class="note"><strong>How to see it in 60 seconds:</strong> start the backend (<code>cd server &amp;&amp; npm run seed &amp;&amp; npm run dev</code>), start the frontend (<code>cd client &amp;&amp; npm run dev</code>), open <code>http://localhost:5173</code> and log in as <code>demo@example.com</code> / <code>password123</code> — the account is pre-loaded with 32 transactions, budgets, goals and two already-due recurring bills so every screen has content.</div>
+
+<h2 class="pb">Table of Contents</h2>
+<table class="toc">
+  <tr><td class="num">—</td><td>Certificate</td><td class="pg">2</td></tr>
+  <tr><td class="num">—</td><td>Declaration</td><td class="pg">3</td></tr>
+  <tr><td class="num">—</td><td>Acknowledgement</td><td class="pg">3</td></tr>
+  <tr><td class="num">—</td><td>Abstract</td><td class="pg">4</td></tr>
+  <tr><td class="num">—</td><td>Project Overview</td><td class="pg">5</td></tr>
+  <tr><td class="num">—</td><td>Index of Figures</td><td class="pg">7</td></tr>
+  <tr><td class="num">1</td><td>Introduction &amp; Problem Definition</td><td class="pg">9</td></tr>
+  <tr><td class="num">2</td><td>Objectives, Scope &amp; Feasibility</td><td class="pg">10</td></tr>
+  <tr><td class="num">3</td><td>System Analysis — Requirements &amp; Use Cases</td><td class="pg">11</td></tr>
+  <tr><td class="num">4</td><td>Technology Stack &amp; Justification</td><td class="pg">13</td></tr>
+  <tr><td class="num">5</td><td>System Design — Architecture, Data Flow &amp; Structure</td><td class="pg">14</td></tr>
+  <tr><td class="num">6</td><td>Database Design — ER Diagram &amp; Schema</td><td class="pg">18</td></tr>
+  <tr><td class="num">7</td><td>Module Description &amp; Feature Study</td><td class="pg">20</td></tr>
+  <tr><td class="num">8</td><td>API Reference</td><td class="pg">23</td></tr>
+  <tr><td class="num">9</td><td>User Interface, Design System &amp; Screenshots</td><td class="pg">26</td></tr>
+  <tr><td class="num">10</td><td>Implementation Highlights (with code)</td><td class="pg">37</td></tr>
+  <tr><td class="num">11</td><td>Security &amp; Data Validation</td><td class="pg">48</td></tr>
+  <tr><td class="num">12</td><td>Testing &amp; Test Cases</td><td class="pg">49</td></tr>
+  <tr><td class="num">13</td><td>Challenges Faced &amp; Solutions</td><td class="pg">52</td></tr>
+  <tr><td class="num">14</td><td>Limitations &amp; Future Scope</td><td class="pg">53</td></tr>
+  <tr><td class="num">15</td><td>Conclusion</td><td class="pg">54</td></tr>
+  <tr><td class="num">—</td><td>References</td><td class="pg">54</td></tr>
+  <tr><td class="num">A</td><td>Appendix A — How to Run &amp; Demo Credentials</td><td class="pg">55</td></tr>
+  <tr><td class="num">B</td><td>Appendix B — Environment Variables &amp; Seed Data</td><td class="pg">55</td></tr>
+  <tr><td class="num">C</td><td>Appendix C — Code Metrics &amp; Module Index</td><td class="pg">56</td></tr>
+</table>
+
+<!-- ============================ INDEX OF FIGURES ============================ -->
+<h2 class="pb">Index of Figures</h2>
+<table class="figindex">
+  <tr><th style="width:14%">Figure</th><th>Caption</th></tr>
+  <!--FIGURE_INDEX_START-->
+  <tr><td>1</td><td>Use-Case Diagram of ExpenseTracker</td></tr>
+  <tr><td>2</td><td>Three-tier architecture of ExpenseTracker</td></tr>
+  <tr><td>3</td><td>Context diagram (Level-0 DFD) of ExpenseTracker</td></tr>
+  <tr><td>4</td><td>Level-1 data flow diagram (DFD) of ExpenseTracker</td></tr>
+  <tr><td>5</td><td>Flowchart of the add-transaction process with validation and notification de-duplication</td></tr>
+  <tr><td>6</td><td>Entity-Relationship Diagram (7 entities, all child records keyed by <code>user</code>)</td></tr>
+  <tr><td>7</td><td>Login: split-screen hero, demo-credential hint and JWT-based sign-in</td></tr>
+  <tr><td>8</td><td>Dashboard (light): total balance hero card, month income/expense, six-month chart, category donut, budget status and recent transactions</td></tr>
+  <tr><td>9</td><td>Dashboard (dark mode): identical layout with the dark palette applied through CSS variables</td></tr>
+  <tr><td>10</td><td>Transactions: debounced search, filter panel, favourites toggle, pagination and CSV export</td></tr>
+  <tr><td>11</td><td>Add Transaction modal: income/expense segmented toggle, sanitised amount, category filtered by type, tags and payment method</td></tr>
+  <tr><td>12</td><td>Budgets: month navigation, overall summary and per-category status (On track / Near limit / Exceeded)</td></tr>
+  <tr><td>13</td><td>Analytics with the Bar chart selected and the vertical chart-type selector</td></tr>
+  <tr><td>14</td><td>The same data switched to a Line chart instantly, without any re-fetch</td></tr>
+  <tr><td>15</td><td>Monthly report: month-over-month insight banner, five KPI cards, six-month chart, category change % table and top categories</td></tr>
+  <tr><td>16</td><td>Savings goals with progress bars, "% complete" and the Add-money contribution modal</td></tr>
+  <tr><td>17</td><td>Recurring expenses split into Active and Paused plans, with next due date and pause/resume toggle</td></tr>
+  <tr><td>18</td><td>Categories: expense/income tabs, emoji icon picker and 12-colour swatch picker</td></tr>
+  <tr><td>19</td><td>Profile → Appearance: eight selectable colour themes with live swatches</td></tr>
+  <tr><td>20</td><td>An alternate theme (Cream Burgundy) demonstrating the pluggable theme engine</td></tr>
+  <tr><td>21</td><td>Friendly empty state instead of a blank table (every list page has one, plus loading skeletons)</td></tr>
+  <tr><td>22</td><td><code>server/src/utils/processRecurring.js</code> — auto-posting of due recurring expenses</td></tr>
+  <tr><td>23</td><td><code>server/src/utils/notify.js</code> — create-once helper with stable de-duplication keys</td></tr>
+  <tr><td>24</td><td><code>server/src/controllers/analyticsController.js</code> — dashboard aggregation</td></tr>
+  <tr><td>25</td><td><code>server/src/controllers/transactionController.js</code> — CSV export endpoint</td></tr>
+  <tr><td>26</td><td><code>client/src/utils/amount.js</code> — client-side amount sanitization</td></tr>
+  <tr><td>27</td><td><code>client/src/themes/option8WarmEspressoSage.js</code> — one theme = one separate file</td></tr>
+  <tr><td>28</td><td><code>client/src/pages/Analytics.jsx</code> — vertical multi-chart selector</td></tr>
+  <!--FIGURE_INDEX_END-->
+</table>
+<p class="note">Figure numbers and captions are maintained automatically: running <code>npm run report</code> renumbers every figure in document order, refreshes this index and fills the page numbers in the table of contents.</p>
+
+<!-- ============================ 1. INTRODUCTION ============================ -->
+<h2 class="pb">1. Introduction &amp; Problem Definition</h2>
+
+<h3>1.1 Background</h3>
+<p>Most people know roughly what they earn but not where it goes. Tracking every expense by hand is tedious, and existing mobile apps are often cluttered with advertisements, locked behind subscriptions or require handing personal financial data to a third-party cloud service. For students and salaried individuals there is a need for a simple, private, self-hosted tracker that gives a clear picture of monthly spending within a couple of clicks.</p>
+
+<h3>1.2 Problem Statement</h3>
+<p>There is no lightweight, self-hosted web application that allows a user to record income and expenses quickly, stay within monthly budgets, work towards savings goals, automate repeated payments and see clear analytics — without relying on third-party services or an internet connection beyond the local machine. Manual methods (diary / Excel) do not validate data, cannot warn before a budget is broken, and cannot produce month-over-month comparisons automatically.</p>
+
+<h3>1.3 Proposed Solution</h3>
+<p>ExpenseTracker provides a single dashboard for the complete personal-finance workflow:</p>
+<ul>
+  <li>Users register and log in; every record is scoped to that user only.</li>
+  <li>Transactions (income / expense) are added with category, payment method, tags, notes, receipt image and favourite flag.</li>
+  <li>Per-category monthly budgets show progress and change status automatically (On track → Near limit → Exceeded).</li>
+  <li>Savings goals track target versus current amount with contributions and milestone alerts.</li>
+  <li>Recurring expenses post themselves as real transactions when they become due.</li>
+  <li>Analytics and monthly reports answer "where did the money go?" with charts and percentage change versus last month.</li>
+  <li>Notifications warn before budgets break, but the same warning is never repeated (de-duplication).</li>
+</ul>
+
+<h3>1.4 Advantages of the Proposed System</h3>
+<table>
+  <tr><th style="width:34%">Advantage</th><th>Description</th></tr>
+  <tr><td>Single source of truth</td><td>All records live in one MongoDB database; no scattered files or sheets.</td></tr>
+  <tr><td>Automatic insight</td><td>Charts, budget status and month-over-month percentages are computed by the server, not by hand.</td></tr>
+  <tr><td>Automation</td><td>Recurring bills post themselves; notifications fire before a budget breaks.</td></tr>
+  <tr><td>Privacy</td><td>Self-hosted; data never leaves the machine. Ownership checks prevent cross-user access.</td></tr>
+  <tr><td>Data integrity</td><td>Amounts are sanitised on the client <em>and</em> the server; schema validation and unique indexes guard the database.</td></tr>
+  <tr><td>Portability</td><td>CSV export moves the filtered data into Excel / Tally in one click.</td></tr>
+  <tr><td>Usability</td><td>Light/dark mode, eight colour themes, loading skeletons, empty states and keyboard-friendly modals.</td></tr>
+</table>
+
+<!-- ============================ 2. OBJECTIVES ============================ -->
+<h2 class="pb">2. Objectives, Scope &amp; Feasibility</h2>
+
+<h3>2.1 Objectives</h3>
+<ol>
+  <li>Build a full-stack application covering the complete finance workflow: transactions → budgets → goals → reports.</li>
+  <li>Provide secure user accounts where each user can only access their own data (strict per-user scoping).</li>
+  <li>Give meaningful insight through interactive charts (Bar / Line / Area / Pie / Donut) and month-over-month comparison.</li>
+  <li>Warn users automatically when budgets are nearly (≥80%) or fully (≥100%) used, without repeating the same warning.</li>
+  <li>Offer a clean, consistent and accessible interface with light/dark mode and eight selectable colour themes.</li>
+  <li>Validate every amount on both ends so bad data can never reach the database.</li>
+  <li>Keep the code simple and modular: small single-purpose files and sequential <code>async/await</code> flow that is easy to explain, review and maintain.</li>
+</ol>
+
+<h3>2.2 Scope of the Project</h3>
+<p><strong>In scope:</strong> authentication (register / login / profile), transaction management with search, filters and pagination, categories, monthly budgets, savings goals, recurring expenses, analytics, monthly reports, notifications, CSV export, receipt upload, favourites, tags, appearance customisation (8 themes + dark mode) and responsive layout.</p>
+<p><strong>Out of scope:</strong> bank / UPI account integration, multi-user shared or family accounts, native mobile applications, cloud deployment and multi-currency conversion — these are listed in Future Scope (Chapter 14).</p>
+
+<h3>2.3 Feasibility Study</h3>
+<table>
+  <tr><th style="width:20%">Type</th><th>Assessment</th></tr>
+  <tr><td><strong>Technical</strong></td><td>All required technologies (Node.js, Express, React, MongoDB, Mongoose, Redux Toolkit, Tailwind CSS) are open-source and free. The complete stack runs on a normal laboratory computer with Node ≥ 18 and a local MongoDB instance. No paid API, cloud account or licence is needed.</td></tr>
+  <tr><td><strong>Operational</strong></td><td>The UI is form-driven and follows a standard dashboard pattern (sidebar, cards, tables, modals). A first-time user can register, add a transaction and read the dashboard without training. Demo accounts with seeded data allow immediate demonstration.</td></tr>
+  <tr><td><strong>Economic</strong></td><td>Development cost is zero (open-source toolchain). Running cost is zero (local MongoDB, no hosting). CSV export replaces any need for a paid reporting tool.</td></tr>
+  <tr><td><strong>Schedule</strong></td><td>Modular design (models → routes → controllers → pages) allowed incremental development and weekly demonstrable increments within the semester timeline.</td></tr>
+</table>
+
+<!-- ============================ 3. REQUIREMENTS ============================ -->
+<h2 class="pb">3. System Analysis — Requirements &amp; Use Cases</h2>
+
+<h3>3.1 Functional Requirements</h3>
+<table>
+  <tr><th style="width:6%">FR</th><th style="width:30%">Requirement</th><th>Description</th></tr>
+  <tr><td>FR1</td><td>User registration &amp; login</td><td>Create an account with name, email and password (min 6 chars); log in to receive a JWT valid for 7 days.</td></tr>
+  <tr><td>FR2</td><td>Profile management</td><td>Update display name, currency (INR/USD/EUR/GBP/JPY/CAD/AUD) and monthly income target.</td></tr>
+  <tr><td>FR3</td><td>Transaction CRUD</td><td>Add, view, edit and delete income/expense records with amount, category, date, description, payment method, tags and notes.</td></tr>
+  <tr><td>FR4</td><td>Search &amp; filter</td><td>Debounced text search plus filters for date range, category, type, payment method, amount range and favourites-only; server-side pagination.</td></tr>
+  <tr><td>FR5</td><td>Category management</td><td>Create custom categories with emoji icon and colour; separate income and expense types; 19 default categories seeded.</td></tr>
+  <tr><td>FR6</td><td>Monthly budgets</td><td>Set a limit per category per month; system reports spent amount, percentage, remaining amount and status.</td></tr>
+  <tr><td>FR7</td><td>Savings goals</td><td>Create goals with target amount and date; add money; show progress percentage and milestone alert at 100%.</td></tr>
+  <tr><td>FR8</td><td>Recurring expenses</td><td>Define repeated payments (daily/weekly/monthly/yearly) with active/paused toggle; due items auto-post as transactions.</td></tr>
+  <tr><td>FR9</td><td>Analytics</td><td>Income vs expense by month, spending by category, payment-method split; switchable chart types without re-fetching.</td></tr>
+  <tr><td>FR10</td><td>Monthly report</td><td>Month navigator with month-over-month insight, six-month chart, category change %, top categories and payment breakdown.</td></tr>
+  <tr><td>FR11</td><td>Notifications</td><td>Budget warning/exceeded, goal reached, recurring posted and welcome alerts in a bell dropdown with unread badge.</td></tr>
+  <tr><td>FR12</td><td>CSV export</td><td>Download the currently filtered transactions (or a selected month) as a date-stamped CSV file.</td></tr>
+  <tr><td>FR13</td><td>Receipt upload</td><td>Attach an image (≤5 MB, image MIME types only) to a transaction and preview it in a lightbox.</td></tr>
+  <tr><td>FR14</td><td>Favourites</td><td>Star frequent transactions and open a favourites-only list.</td></tr>
+  <tr><td>FR15</td><td>Appearance</td><td>Toggle light/dark mode and choose one of eight colour themes; both persisted in localStorage.</td></tr>
+</table>
+
+<h3>3.2 Non-Functional Requirements</h3>
+<table>
+  <tr><th style="width:24%">Category</th><th>Requirement &amp; How it is met</th></tr>
+  <tr><td>Security</td><td>JWT bearer auth, bcrypt hashing (10 rounds), helmet headers, single-origin CORS allow-list, ownership check on every query.</td></tr>
+  <tr><td>Performance</td><td>Compound indexes on <code>user+date</code>, <code>user+month+year+category</code>; aggregation pipelines run inside MongoDB; debounced search reduces requests; charts animate at 250 ms.</td></tr>
+  <tr><td>Usability</td><td>Consistent component classes, loading skeletons on every page, friendly empty states, Escape-to-close modals, visible focus outlines, reduced-motion support.</td></tr>
+  <tr><td>Reliability</td><td>Central error handler returns a uniform <code>{ success, data|message }</code> envelope; 401 interceptor clears the token and redirects to login.</td></tr>
+  <tr><td>Portability</td><td>Cross-platform (Windows/Linux/macOS), browser-based client, environment variables isolated in two config files.</td></tr>
+  <tr><td>Maintainability</td><td>Small single-purpose files (models / controllers / routes / utils / slices), no code duplication of env access, one HTTP client instance.</td></tr>
+</table>
+
+<h3>3.3 Use-Case Diagram</h3>
+<figure>
+<svg viewBox="0 0 880 448" width="100%" xmlns="http://www.w3.org/2000/svg" font-family="Arial, Helvetica, sans-serif">
+  <rect x="1" y="1" width="878" height="446" fill="#fbfaf7" stroke="#d7d1c7"/>
+  <rect x="200" y="30" width="660" height="400" fill="none" stroke="#3a2f27" stroke-width="1.6" stroke-dasharray="6 4"/>
+  <text x="530" y="52" text-anchor="middle" font-size="14" font-weight="bold" fill="#3a2f27">ExpenseTracker System</text>
+
+  <!-- actor -->
+  <circle cx="90" cy="130" r="18" fill="none" stroke="#3a2f27" stroke-width="2"/>
+  <line x1="90" y1="148" x2="90" y2="205" stroke="#3a2f27" stroke-width="2"/>
+  <line x1="60" y1="165" x2="120" y2="165" stroke="#3a2f27" stroke-width="2"/>
+  <line x1="90" y1="205" x2="65" y2="245" stroke="#3a2f27" stroke-width="2"/>
+  <line x1="90" y1="205" x2="115" y2="245" stroke="#3a2f27" stroke-width="2"/>
+  <text x="90" y="268" text-anchor="middle" font-size="13" font-weight="bold" fill="#3a2f27">Registered User</text>
+
+  <!-- use cases -->
+  <g fill="#f5f2ec" stroke="#78816a" stroke-width="1.6">
+    <ellipse cx="360" cy="95"  rx="118" ry="26"/>
+    <ellipse cx="360" cy="155" rx="118" ry="26"/>
+    <ellipse cx="360" cy="215" rx="118" ry="26"/>
+    <ellipse cx="360" cy="275" rx="118" ry="26"/>
+    <ellipse cx="640" cy="95"  rx="118" ry="26"/>
+    <ellipse cx="640" cy="155" rx="118" ry="26"/>
+    <ellipse cx="640" cy="215" rx="118" ry="26"/>
+    <ellipse cx="640" cy="275" rx="118" ry="26"/>
+    <ellipse cx="500" cy="370" rx="140" ry="26"/>
+  </g>
+  <g font-size="12.5" fill="#1c1a17" text-anchor="middle">
+    <text x="360" y="99">Register / Login (JWT)</text>
+    <text x="360" y="159">Add &amp; manage transactions</text>
+    <text x="360" y="219">Set monthly budgets</text>
+    <text x="360" y="279">Create savings goals</text>
+    <text x="640" y="99">View analytics &amp; charts</text>
+    <text x="640" y="159">Generate monthly report</text>
+    <text x="640" y="219">Export CSV / upload receipt</text>
+    <text x="640" y="279">Manage recurring expenses</text>
+    <text x="500" y="374">Receive smart notifications</text>
+  </g>
+
+  <g stroke="#5f584f" stroke-width="1.2" fill="none">
+    <!-- actor to left column -->
+    <line x1="120" y1="140" x2="242" y2="98"/>
+    <line x1="120" y1="155" x2="242" y2="155"/>
+    <line x1="120" y1="172" x2="242" y2="213"/>
+    <line x1="120" y1="185" x2="242" y2="272"/>
+    <!-- actor to right column via an elbow bus below the left column -->
+    <polyline points="118,238 250,330 505,330"/>
+    <line x1="505" y1="330" x2="505" y2="95"/>
+    <line x1="505" y1="95"  x2="522" y2="95"/>
+    <line x1="505" y1="155" x2="522" y2="155"/>
+    <line x1="505" y1="215" x2="522" y2="215"/>
+    <line x1="505" y1="275" x2="522" y2="275"/>
+    <line x1="505" y1="330" x2="501" y2="344"/>
+  </g>
+  <text x="300" y="346" font-size="10.5" fill="#5f584f" font-style="italic">association bus</text>
+</svg>
+</figure>
+<p class="cap">Figure 1 — Use-Case Diagram of ExpenseTracker</p>
+
+<!-- ============================ 4. TECHNOLOGY ============================ -->
+<h2 class="pb">4. Technology Stack &amp; Justification</h2>
+<table>
+  <tr><th style="width:14%">Layer</th><th style="width:30%">Technology (version)</th><th>Purpose &amp; justification</th></tr>
+  <tr><td>Database</td><td>MongoDB (local, DB <code>expenseTracker</code>)</td><td>Schema-flexible document store suits variable finance records (tags, notes); aggregation framework computes reports inside the database.</td></tr>
+  <tr><td>ODM</td><td>Mongoose 8</td><td>Declarative schemas, built-in validation, references, timestamps and compound indexes.</td></tr>
+  <tr><td>Backend</td><td>Node.js + Express 4</td><td>Lightweight REST API on port 5000; middleware pipeline for auth, uploads and error handling.</td></tr>
+  <tr><td>Frontend</td><td>React 18 (Vite 5)</td><td>Component-based SPA on port 5173; fast HMR during development and optimised production build.</td></tr>
+  <tr><td>State</td><td>Redux Toolkit 2 + React Redux 9</td><td>Predictable store with eight slices and async thunks; no prop-drilling for server data.</td></tr>
+  <tr><td>Routing</td><td>React Router v6</td><td>Protected and public route guards (<code>ProtectedRoute</code> / <code>PublicRoute</code>).</td></tr>
+  <tr><td>Charts</td><td>Recharts 2</td><td>Declarative Bar / Line / Area / Pie / Donut charts with responsive containers.</td></tr>
+  <tr><td>Styling</td><td>Tailwind CSS 3.4 + CSS variables</td><td>Utility classes mapped to CSS custom properties → theming and dark mode without touching components.</td></tr>
+  <tr><td>HTTP</td><td>Axios</td><td>Single instance with request (token attach) and response (401 logout) interceptors.</td></tr>
+  <tr><td>Auth</td><td>jsonwebtoken + bcryptjs</td><td>Stateless HS256 tokens (7-day expiry) and salted password hashing (10 rounds).</td></tr>
+  <tr><td>Uploads</td><td>Multer</td><td>Disk storage for receipt images, MIME-type filter and size limit.</td></tr>
+  <tr><td>Security</td><td>helmet, CORS, morgan</td><td>Secure HTTP headers, single-origin allow-list, request logging in development.</td></tr>
+  <tr><td>Feedback</td><td>react-hot-toast, react-icons</td><td>Non-blocking success/error toasts and a consistent icon set.</td></tr>
+</table>
+<div class="note"><strong>Why this combination?</strong> The MERN stack keeps one language (JavaScript) across the entire application, which let the development focus on features instead of context switching. MongoDB's aggregation pipelines moved all reporting logic server-side, while React + Redux kept the UI reactive. The Vite dev server proxies <code>/api</code> and <code>/uploads</code> to the backend, so the browser talks to a single origin and CORS stays trivial in development.</div>
+
+<!-- ============================ 5. DESIGN ============================ -->
+<h2 class="pb">5. System Design — Architecture, Data Flow &amp; Structure</h2>
+
+<h3>5.1 Three-Tier Architecture</h3>
+<p>ExpenseTracker follows a classic three-tier client–server architecture: a React single-page application (presentation tier), an Express REST API (application tier) and MongoDB (data tier). No page ever talks to the database directly — every read or write passes through the API, which authenticates the token and scopes the query to that user.</p>
+
+<figure>
+<svg viewBox="0 0 880 470" width="100%" xmlns="http://www.w3.org/2000/svg" font-family="Arial, Helvetica, sans-serif">
+  <defs>
+    <marker id="ar" markerWidth="10" markerHeight="8" refX="9" refY="4" orient="auto">
+      <path d="M0,0 L10,4 L0,8 z" fill="#3a2f27"/>
+    </marker>
+  </defs>
+  <rect x="1" y="1" width="878" height="468" fill="#fbfaf7" stroke="#d7d1c7"/>
+  <text x="440" y="26" text-anchor="middle" font-size="11.5" fill="#5f584f">Data flow: React &#8646; Express (HTTP / JSON + Bearer JWT) &#8646; MongoDB (Mongoose ODM)</text>
+
+  <!-- Tier 1 -->
+  <rect x="30" y="40" width="330" height="250" rx="10" fill="#f5f2ec" stroke="#3a2f27" stroke-width="1.6"/>
+  <text x="195" y="66" text-anchor="middle" font-size="14" font-weight="bold" fill="#3a2f27">TIER 1 — PRESENTATION (React SPA :5173)</text>
+  <g fill="#ffffff" stroke="#78816a" stroke-width="1.3">
+    <rect x="50" y="86"  width="140" height="46" rx="6"/>
+    <rect x="205" y="86" width="140" height="46" rx="6"/>
+    <rect x="50" y="146" width="140" height="46" rx="6"/>
+    <rect x="205" y="146" width="140" height="46" rx="6"/>
+    <rect x="50" y="206" width="140" height="46" rx="6"/>
+    <rect x="205" y="206" width="140" height="46" rx="6"/>
+  </g>
+  <g font-size="12" fill="#1c1a17" text-anchor="middle">
+    <text x="120" y="106">Pages (11)</text><text x="120" y="122" font-size="10.5" fill="#5f584f">Dashboard, Transactions…</text>
+    <text x="275" y="106">Redux Slices (8)</text><text x="275" y="122" font-size="10.5" fill="#5f584f">auth, transactions…</text>
+    <text x="120" y="166">Axios API client</text><text x="120" y="182" font-size="10.5" fill="#5f584f">JWT interceptor</text>
+    <text x="275" y="166">Theme engine (8)</text><text x="275" y="182" font-size="10.5" fill="#5f584f">CSS variables</text>
+    <text x="120" y="226">Components</text><text x="120" y="242" font-size="10.5" fill="#5f584f">Modal, charts, layout</text>
+    <text x="275" y="226">Tailwind + JSX</text><text x="275" y="242" font-size="10.5" fill="#5f584f">JetBrains Mono UI</text>
+  </g>
+
+  <!-- Tier 2 -->
+  <rect x="420" y="40" width="330" height="250" rx="10" fill="#f5f2ec" stroke="#3a2f27" stroke-width="1.6"/>
+  <text x="585" y="66" text-anchor="middle" font-size="14" font-weight="bold" fill="#3a2f27">TIER 2 — APPLICATION (Express :5000)</text>
+  <g fill="#ffffff" stroke="#78816a" stroke-width="1.3">
+    <rect x="440" y="86"  width="140" height="46" rx="6"/>
+    <rect x="595" y="86" width="140" height="46" rx="6"/>
+    <rect x="440" y="146" width="140" height="46" rx="6"/>
+    <rect x="595" y="146" width="140" height="46" rx="6"/>
+    <rect x="440" y="206" width="140" height="46" rx="6"/>
+    <rect x="595" y="206" width="140" height="46" rx="6"/>
+  </g>
+  <g font-size="12" fill="#1c1a17" text-anchor="middle">
+    <text x="510" y="106">Routes (8 routers)</text><text x="510" y="122" font-size="10.5" fill="#5f584f">41 endpoints</text>
+    <text x="665" y="106">Middleware</text><text x="665" y="122" font-size="10.5" fill="#5f584f">protect · upload · error</text>
+    <text x="510" y="166">Controllers (8)</text><text x="510" y="182" font-size="10.5" fill="#5f584f">business logic</text>
+    <text x="665" y="166">Utils (6)</text><text x="665" y="182" font-size="10.5" fill="#5f584f">notify · recurring · CSV</text>
+    <text x="510" y="226">Models (7)</text><text x="510" y="242" font-size="10.5" fill="#5f584f">Mongoose schemas</text>
+    <text x="665" y="226">helmet · CORS · morgan</text><text x="665" y="242" font-size="10.5" fill="#5f584f">security layer</text>
+  </g>
+
+  <!-- Tier 3 -->
+  <rect x="420" y="345" width="330" height="98" rx="10" fill="#f5f2ec" stroke="#3a2f27" stroke-width="1.6"/>
+  <text x="585" y="371" text-anchor="middle" font-size="14" font-weight="bold" fill="#3a2f27">TIER 3 — DATA (MongoDB :27017)</text>
+  <text x="585" y="393" text-anchor="middle" font-size="11" fill="#1c1a17">7 collections · indexes · aggregation pipelines</text>
+  <text x="585" y="413" text-anchor="middle" font-size="10.5" fill="#5f584f">users · transactions · categories · budgets</text>
+  <text x="585" y="431" text-anchor="middle" font-size="10.5" fill="#5f584f">goals · recurring · notifications</text>
+
+  <!-- arrows -->
+  <line x1="360" y1="140" x2="418" y2="140" stroke="#3a2f27" stroke-width="2" marker-end="url(#ar)"/>
+  <line x1="418" y1="175" x2="360" y2="175" stroke="#3a2f27" stroke-width="2" marker-end="url(#ar)"/>
+
+  <line x1="585" y1="290" x2="585" y2="343" stroke="#3a2f27" stroke-width="2" marker-end="url(#ar)"/>
+  <line x1="615" y1="343" x2="615" y2="292" stroke="#3a2f27" stroke-width="2" marker-end="url(#ar)"/>
+  <text x="800" y="320" text-anchor="middle" font-size="10.5" fill="#5f584f">Mongoose ODM</text>
+
+  <rect x="30" y="345" width="330" height="98" rx="10" fill="#ffffff" stroke="#78816a" stroke-width="1.4" stroke-dasharray="5 3"/>
+  <text x="195" y="372" text-anchor="middle" font-size="13" font-weight="bold" fill="#3a2f27">Vite Dev Proxy</text>
+  <text x="195" y="396" text-anchor="middle" font-size="11.5" fill="#1c1a17">/api → http://localhost:5000</text>
+  <text x="195" y="416" text-anchor="middle" font-size="11.5" fill="#1c1a17">/uploads → server/uploads</text>
+  <line x1="195" y1="290" x2="195" y2="343" stroke="#78816a" stroke-width="2" marker-end="url(#ar)"/>
+  <line x1="362" y1="372" x2="416" y2="296" stroke="#78816a" stroke-width="1.6" stroke-dasharray="5 4" marker-end="url(#ar)"/>
+  <text x="366" y="342" font-size="9.5" fill="#78816a">proxy</text>
+
+</svg>
+</figure>
+<p class="cap">Figure 2 — Three-tier architecture of ExpenseTracker</p>
+
+<h3>5.2 Request Lifecycle</h3>
+<ol>
+  <li>The page dispatches a Redux thunk, which calls the shared Axios instance in <code>services/api.js</code>.</li>
+  <li>The request interceptor attaches <code>Authorization: Bearer &lt;token&gt;</code> from <code>localStorage</code>.</li>
+  <li>The Express route runs the <code>protect</code> middleware, which verifies the JWT and loads <code>req.user</code>.</li>
+  <li>The controller validates and sanitises input (for example <code>toAmount</code>), then runs the query with <code>user: req.user._id</code>.</li>
+  <li>Mongoose executes the query (or aggregation pipeline) against MongoDB and returns documents.</li>
+  <li>The response returns a standardised <code>{ success, data | message }</code> envelope.</li>
+  <li>The thunk stores the payload in the slice; components re-render and charts update.</li>
+  <li>On HTTP 401 the response interceptor clears the token and redirects to <code>/login</code>; other errors land in the central error handler.</li>
+</ol>
+
+<h3>5.3 Context Diagram (DFD Level-0)</h3>
+<p>The context diagram treats the whole application as a single process and shows only the external entity it interacts with and the data stores it owns. The registered user exchanges credentials and transaction data with the system; the system returns dashboards, reports, alerts and CSV files, and reads/writes all persistent records in MongoDB.</p>
+<figure>
+<svg viewBox="0 0 880 330" xmlns="http://www.w3.org/2000/svg" font-family="Arial, Helvetica, sans-serif">
+  <defs>
+    <marker id="ar-ctx" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#3a2f27"/>
+    </marker>
+  </defs>
+
+  <!-- external entity -->
+  <rect x="50" y="130" width="170" height="110" fill="#3a2f27" stroke="#3a2f27" stroke-width="1.6"/>
+  <text x="135" y="176" text-anchor="middle" font-size="14" font-weight="bold" fill="#ffffff">REGISTERED</text>
+  <text x="135" y="197" text-anchor="middle" font-size="14" font-weight="bold" fill="#ffffff">USER</text>
+  <text x="135" y="220" text-anchor="middle" font-size="10" fill="#c9c2b6">external entity</text>
+
+  <!-- process -->
+  <circle cx="440" cy="190" r="88" fill="#f5f2ec" stroke="#3a2f27" stroke-width="2"/>
+  <text x="440" y="162" text-anchor="middle" font-size="15" font-weight="bold" fill="#3a2f27">0</text>
+  <text x="440" y="192" text-anchor="middle" font-size="14.5" font-weight="bold" fill="#3a2f27">ExpenseTracker</text>
+  <text x="440" y="213" text-anchor="middle" font-size="14.5" font-weight="bold" fill="#3a2f27">System</text>
+
+  <!-- data store -->
+  <rect x="700" y="140" width="150" height="100" fill="#ffffff" stroke="#3a2f27" stroke-width="1.6"/>
+  <line x1="710" y1="140" x2="710" y2="240" stroke="#3a2f27" stroke-width="1.6"/>
+  <line x1="716" y1="140" x2="716" y2="240" stroke="#3a2f27" stroke-width="1.6"/>
+  <text x="790" y="177" text-anchor="middle" font-size="13" font-weight="bold" fill="#3a2f27">MONGODB</text>
+  <text x="790" y="200" text-anchor="middle" font-size="10.5" fill="#1c1a17">D1 – D7 collections</text>
+  <text x="790" y="220" text-anchor="middle" font-size="10.5" fill="#78816a">7 collections</text>
+
+  <!-- flows: user -> system -->
+  <line x1="220" y1="158" x2="356" y2="166" stroke="#3a2f27" stroke-width="1.8" marker-end="url(#ar-ctx)"/>
+  <text x="226" y="150" font-size="11" fill="#3a2f27">login / registration</text>
+  <line x1="220" y1="218" x2="356" y2="214" stroke="#3a2f27" stroke-width="1.8" marker-end="url(#ar-ctx)"/>
+  <text x="224" y="238" font-size="11" fill="#3a2f27">transactions · budgets · goals · recurring</text>
+
+  <!-- flow: system -> user -->
+  <polyline points="378,254 135,286 135,242" fill="none" stroke="#3a2f27" stroke-width="1.8" marker-end="url(#ar-ctx)"/>
+  <text x="150" y="304" font-size="11" fill="#3a2f27">dashboards · charts · reports · alerts · CSV</text>
+
+  <!-- flows: system <-> store -->
+  <line x1="528" y1="170" x2="698" y2="162" stroke="#3a2f27" stroke-width="1.8" marker-end="url(#ar-ctx)"/>
+  <text x="556" y="158" font-size="10.5" fill="#3a2f27">write / update records</text>
+  <line x1="698" y1="220" x2="530" y2="212" stroke="#3a2f27" stroke-width="1.8" marker-end="url(#ar-ctx)"/>
+  <text x="556" y="234" font-size="10.5" fill="#3a2f27">read + aggregate</text>
+</svg>
+</figure>
+<p class="cap">Figure 3 — Context diagram (Level-0 DFD) of ExpenseTracker</p>
+
+<h3>5.4 Level-1 Data Flow Diagram</h3>
+<p>Level 1 decomposes the single process into five sub-processes and names the data stores they read from and write to. All flows originate from or terminate at the registered user; dashed lines show read-only (aggregate) flows.</p>
+<figure>
+<svg viewBox="0 0 900 690" xmlns="http://www.w3.org/2000/svg" font-family="Arial, Helvetica, sans-serif">
+  <defs>
+    <marker id="ar-dfd" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#3a2f27"/>
+    </marker>
+    <marker id="ar-dfd-d" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#78816a"/>
+    </marker>
+  </defs>
+
+  <!-- external entity -->
+  <rect x="40" y="255" width="165" height="110" fill="#3a2f27" stroke="#3a2f27" stroke-width="1.6"/>
+  <text x="122" y="300" text-anchor="middle" font-size="13.5" font-weight="bold" fill="#ffffff">REGISTERED</text>
+  <text x="122" y="321" text-anchor="middle" font-size="13.5" font-weight="bold" fill="#ffffff">USER</text>
+  <text x="122" y="345" text-anchor="middle" font-size="9.5" fill="#c9c2b6">external entity</text>
+
+  <!-- input bus -->
+  <line x1="205" y1="310" x2="228" y2="310" stroke="#3a2f27" stroke-width="1.8"/>
+  <line x1="228" y1="95" x2="228" y2="575" stroke="#3a2f27" stroke-width="1.8"/>
+  <line x1="228" y1="95" x2="300" y2="95" stroke="#3a2f27" stroke-width="1.8" marker-end="url(#ar-dfd)"/>
+  <line x1="228" y1="215" x2="300" y2="215" stroke="#3a2f27" stroke-width="1.8" marker-end="url(#ar-dfd)"/>
+  <line x1="228" y1="335" x2="300" y2="335" stroke="#3a2f27" stroke-width="1.8" marker-end="url(#ar-dfd)"/>
+  <line x1="228" y1="455" x2="300" y2="455" stroke="#3a2f27" stroke-width="1.8" marker-end="url(#ar-dfd)"/>
+  <line x1="228" y1="575" x2="300" y2="575" stroke="#3a2f27" stroke-width="1.8" marker-end="url(#ar-dfd)"/>
+  <text x="232" y="87" font-size="9.5" fill="#3a2f27">credentials</text>
+  <text x="232" y="207" font-size="9.5" fill="#3a2f27">transactions</text>
+  <text x="232" y="327" font-size="9.5" fill="#3a2f27">budgets</text>
+  <text x="232" y="447" font-size="9.5" fill="#3a2f27">recurring</text>
+  <text x="232" y="567" font-size="9.5" fill="#3a2f27">reports</text>
+
+  <!-- processes -->
+  <circle cx="350" cy="95" r="48" fill="#f5f2ec" stroke="#3a2f27" stroke-width="1.8"/>
+  <text x="350" y="82" text-anchor="middle" font-size="13" font-weight="bold" fill="#3a2f27">1.1</text>
+  <text x="350" y="100" text-anchor="middle" font-size="10.5" fill="#1c1a17">Authentication</text>
+  <text x="350" y="114" text-anchor="middle" font-size="10.5" fill="#1c1a17">&amp; Profile</text>
+
+  <circle cx="350" cy="215" r="48" fill="#f5f2ec" stroke="#3a2f27" stroke-width="1.8"/>
+  <text x="350" y="202" text-anchor="middle" font-size="13" font-weight="bold" fill="#3a2f27">1.2</text>
+  <text x="350" y="220" text-anchor="middle" font-size="10.5" fill="#1c1a17">Transaction</text>
+  <text x="350" y="234" text-anchor="middle" font-size="10.5" fill="#1c1a17">Management</text>
+
+  <circle cx="350" cy="335" r="48" fill="#f5f2ec" stroke="#3a2f27" stroke-width="1.8"/>
+  <text x="350" y="322" text-anchor="middle" font-size="13" font-weight="bold" fill="#3a2f27">1.3</text>
+  <text x="350" y="340" text-anchor="middle" font-size="10.5" fill="#1c1a17">Budget &amp;</text>
+  <text x="350" y="354" text-anchor="middle" font-size="10.5" fill="#1c1a17">Goal Control</text>
+
+  <circle cx="350" cy="455" r="48" fill="#f5f2ec" stroke="#3a2f27" stroke-width="1.8"/>
+  <text x="350" y="442" text-anchor="middle" font-size="13" font-weight="bold" fill="#3a2f27">1.4</text>
+  <text x="350" y="460" text-anchor="middle" font-size="10.5" fill="#1c1a17">Recurring</text>
+  <text x="350" y="474" text-anchor="middle" font-size="10.5" fill="#1c1a17">Processing</text>
+
+  <circle cx="350" cy="575" r="48" fill="#f5f2ec" stroke="#3a2f27" stroke-width="1.8"/>
+  <text x="350" y="561" text-anchor="middle" font-size="13" font-weight="bold" fill="#3a2f27">1.5</text>
+  <text x="350" y="579" text-anchor="middle" font-size="10.5" fill="#1c1a17">Analytics &amp;</text>
+  <text x="350" y="593" text-anchor="middle" font-size="10.5" fill="#1c1a17">Notifications</text>
+
+  <!-- data stores -->
+  <rect x="640" y="70" width="230" height="46" fill="#ffffff" stroke="#3a2f27" stroke-width="1.5"/>
+  <line x1="650" y1="70" x2="650" y2="116" stroke="#3a2f27" stroke-width="1.5"/>
+  <line x1="656" y1="70" x2="656" y2="116" stroke="#3a2f27" stroke-width="1.5"/>
+  <text x="666" y="90" font-size="11.5" font-weight="bold" fill="#3a2f27">D1 · Users &amp; Profile</text>
+  <text x="666" y="106" font-size="9.5" fill="#78816a">name · email · password hash</text>
+
+  <rect x="640" y="188" width="230" height="46" fill="#ffffff" stroke="#3a2f27" stroke-width="1.5"/>
+  <line x1="650" y1="188" x2="650" y2="234" stroke="#3a2f27" stroke-width="1.5"/>
+  <line x1="656" y1="188" x2="656" y2="234" stroke="#3a2f27" stroke-width="1.5"/>
+  <text x="666" y="208" font-size="11.5" font-weight="bold" fill="#3a2f27">D2 · Transactions &amp; Categories</text>
+  <text x="666" y="224" font-size="9.5" fill="#78816a">amount · type · category · tags</text>
+
+  <rect x="640" y="358" width="230" height="46" fill="#ffffff" stroke="#3a2f27" stroke-width="1.5"/>
+  <line x1="650" y1="358" x2="650" y2="404" stroke="#3a2f27" stroke-width="1.5"/>
+  <line x1="656" y1="358" x2="656" y2="404" stroke="#3a2f27" stroke-width="1.5"/>
+  <text x="666" y="378" font-size="11.5" font-weight="bold" fill="#3a2f27">D3 · Budgets &amp; Savings Goals</text>
+  <text x="666" y="394" font-size="9.5" fill="#78816a">limits · contributions · progress</text>
+
+  <rect x="640" y="470" width="230" height="46" fill="#ffffff" stroke="#3a2f27" stroke-width="1.5"/>
+  <line x1="650" y1="470" x2="650" y2="516" stroke="#3a2f27" stroke-width="1.5"/>
+  <line x1="656" y1="470" x2="656" y2="516" stroke="#3a2f27" stroke-width="1.5"/>
+  <text x="666" y="490" font-size="11.5" font-weight="bold" fill="#3a2f27">D4 · Recurring &amp; Notifications</text>
+  <text x="666" y="506" font-size="9.5" fill="#78816a">schedules · de-dup alert keys</text>
+
+  <!-- process -> store flows -->
+  <line x1="398" y1="95" x2="636" y2="93" stroke="#3a2f27" stroke-width="1.6" marker-end="url(#ar-dfd)"/>
+  <text x="466" y="84" font-size="10" fill="#3a2f27">user records</text>
+  <line x1="398" y1="215" x2="636" y2="211" stroke="#3a2f27" stroke-width="1.6" marker-end="url(#ar-dfd)"/>
+  <text x="456" y="202" font-size="10" fill="#3a2f27">income · expense entries</text>
+  <line x1="398" y1="335" x2="636" y2="381" stroke="#3a2f27" stroke-width="1.6" marker-end="url(#ar-dfd)"/>
+  <text x="462" y="350" font-size="10" fill="#3a2f27">limits · progress</text>
+  <line x1="398" y1="455" x2="636" y2="493" stroke="#3a2f27" stroke-width="1.6" marker-end="url(#ar-dfd)"/>
+  <text x="452" y="462" font-size="10" fill="#3a2f27">schedules · rules</text>
+  <line x1="398" y1="575" x2="636" y2="508" stroke="#3a2f27" stroke-width="1.6" marker-end="url(#ar-dfd)"/>
+  <text x="452" y="546" font-size="10" fill="#3a2f27">alert events</text>
+
+  <!-- read-only aggregate flow (dashed) -->
+  <polyline points="870,211 886,211 886,645 350,645 350,624" fill="none" stroke="#78816a" stroke-width="1.6" stroke-dasharray="6 4" marker-end="url(#ar-dfd-d)"/>
+  <text x="480" y="637" font-size="10" fill="#78816a">tx · budget · goal data (read for aggregation)</text>
+
+  <!-- feedback flow -->
+  <polyline points="317,610 120,610 120,367" fill="none" stroke="#3a2f27" stroke-width="1.6" marker-end="url(#ar-dfd)"/>
+  <text x="132" y="602" font-size="10" fill="#3a2f27">reports · alerts · CSV</text>
+</svg>
+</figure>
+<p class="cap">Figure 4 — Level-1 data flow diagram (DFD) of ExpenseTracker</p>
+
+<h3>5.5 Flowchart — Adding a Transaction</h3>
+<p>The flowchart below traces one complete business process: entering a transaction, validating it on the client and on the server, persisting it, applying budget / recurring rules, de-duplicating the resulting notification and updating the UI.</p>
+<figure>
+<svg viewBox="0 0 880 900" xmlns="http://www.w3.org/2000/svg" font-family="Arial, Helvetica, sans-serif">
+  <defs>
+    <marker id="ar-fc" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#3a2f27"/>
+    </marker>
+  </defs>
+  <g stroke="#3a2f27" stroke-width="1.7" fill="#ffffff">
+    <!-- start / end -->
+    <rect x="380" y="14" width="140" height="36" rx="18" fill="#3a2f27"/>
+    <text x="450" y="37" text-anchor="middle" font-size="12.5" font-weight="bold" fill="#ffffff" stroke="none">Start</text>
+
+    <line x1="450" y1="50" x2="450" y2="64" marker-end="url(#ar-fc)"/>
+
+    <!-- inputs -->
+    <polygon points="346,66 574,66 554,112 326,112" fill="#f5f2ec"/>
+    <text x="450" y="86" text-anchor="middle" font-size="11.5" fill="#1c1a17" stroke="none">Open “Add Transaction” modal</text>
+    <line x1="450" y1="112" x2="450" y2="126" marker-end="url(#ar-fc)"/>
+
+    <polygon points="346,128 574,128 554,174 326,174" fill="#f5f2ec"/>
+    <text x="450" y="147" text-anchor="middle" font-size="11.5" fill="#1c1a17" stroke="none">Enter amount · type ·</text>
+    <text x="450" y="164" text-anchor="middle" font-size="11.5" fill="#1c1a17" stroke="none">category · date</text>
+    <line x1="450" y1="174" x2="450" y2="188" marker-end="url(#ar-fc)"/>
+
+    <!-- decision 1: client validation -->
+    <polygon points="450,190 560,226 450,262 340,226" fill="#e9ede4"/>
+    <text x="450" y="221" text-anchor="middle" font-size="11" fill="#1c1a17" stroke="none">Client validation:</text>
+    <text x="450" y="238" text-anchor="middle" font-size="11" fill="#1c1a17" stroke="none">(digits, &gt; 0, ≤ 2 dp)</text>
+
+    <line x1="450" y1="262" x2="450" y2="276" marker-end="url(#ar-fc)"/>
+    <text x="460" y="272" font-size="10" fill="#78816a" stroke="none">Yes</text>
+
+    <!-- POST -->
+    <rect x="330" y="278" width="240" height="42" rx="6" fill="#f5f2ec"/>
+    <text x="450" y="296" text-anchor="middle" font-size="11.5" fill="#1c1a17" stroke="none">POST /api/transactions</text>
+    <text x="450" y="312" text-anchor="middle" font-size="10.5" fill="#78816a" stroke="none">(Authorization: Bearer JWT)</text>
+    <line x1="450" y1="320" x2="450" y2="334" marker-end="url(#ar-fc)"/>
+
+    <!-- decision 2: token -->
+    <polygon points="450,336 560,372 450,408 340,372" fill="#e9ede4"/>
+    <text x="450" y="367" text-anchor="middle" font-size="11" fill="#1c1a17" stroke="none">protect middleware:</text>
+    <text x="450" y="384" text-anchor="middle" font-size="11" fill="#1c1a17" stroke="none">JWT token valid?</text>
+
+    <line x1="450" y1="408" x2="450" y2="422" marker-end="url(#ar-fc)"/>
+    <text x="460" y="418" font-size="10" fill="#78816a" stroke="none">Yes</text>
+
+    <!-- decision 3: server validation -->
+    <polygon points="450,424 560,460 450,496 340,460" fill="#e9ede4"/>
+    <text x="450" y="455" text-anchor="middle" font-size="11" fill="#1c1a17" stroke="none">Server validation:</text>
+    <text x="450" y="472" text-anchor="middle" font-size="11" fill="#1c1a17" stroke="none">toAmount valid?</text>
+
+    <line x1="450" y1="496" x2="450" y2="510" marker-end="url(#ar-fc)"/>
+    <text x="460" y="506" font-size="10" fill="#78816a" stroke="none">Yes</text>
+
+    <!-- insert -->
+    <rect x="330" y="512" width="240" height="42" rx="6" fill="#f5f2ec"/>
+    <text x="450" y="530" text-anchor="middle" font-size="11.5" fill="#1c1a17" stroke="none">Insert transaction</text>
+    <text x="450" y="546" text-anchor="middle" font-size="10.5" fill="#78816a" stroke="none">(scoped to logged-in user)</text>
+    <line x1="450" y1="554" x2="450" y2="568" marker-end="url(#ar-fc)"/>
+
+    <!-- rules -->
+    <rect x="330" y="570" width="240" height="42" rx="6" fill="#f5f2ec"/>
+    <text x="450" y="588" text-anchor="middle" font-size="11.5" fill="#1c1a17" stroke="none">Check budget · goal ·</text>
+    <text x="450" y="604" text-anchor="middle" font-size="11.5" fill="#1c1a17" stroke="none">recurring rules</text>
+    <line x1="450" y1="612" x2="450" y2="626" marker-end="url(#ar-fc)"/>
+
+    <!-- decision 4: de-dup -->
+    <polygon points="450,628 560,664 450,700 340,664" fill="#e9ede4"/>
+    <text x="450" y="659" text-anchor="middle" font-size="11" fill="#1c1a17" stroke="none">Notification key</text>
+    <text x="450" y="676" text-anchor="middle" font-size="11" fill="#1c1a17" stroke="none">already exists?</text>
+
+    <line x1="450" y1="700" x2="450" y2="714" marker-end="url(#ar-fc)"/>
+    <text x="460" y="710" font-size="10" fill="#78816a" stroke="none">No</text>
+
+    <!-- create notification -->
+    <rect x="330" y="716" width="240" height="42" rx="6" fill="#f5f2ec"/>
+    <text x="450" y="742" text-anchor="middle" font-size="11.5" fill="#1c1a17" stroke="none">Create notification (de-dup key)</text>
+    <line x1="450" y1="758" x2="450" y2="772" marker-end="url(#ar-fc)"/>
+
+    <!-- respond + UI -->
+    <rect x="330" y="774" width="240" height="42" rx="6" fill="#f5f2ec"/>
+    <text x="450" y="792" text-anchor="middle" font-size="11.5" fill="#1c1a17" stroke="none">Return JSON · Redux update</text>
+    <text x="450" y="808" text-anchor="middle" font-size="11.5" fill="#1c1a17" stroke="none">toast · new row flash</text>
+    <line x1="450" y1="816" x2="450" y2="830" marker-end="url(#ar-fc)"/>
+
+    <rect x="380" y="832" width="140" height="36" rx="18" fill="#3a2f27"/>
+    <text x="450" y="855" text-anchor="middle" font-size="12.5" font-weight="bold" fill="#ffffff" stroke="none">End</text>
+  </g>
+
+  <!-- branch: client invalid -->
+  <g stroke="#b0553a" stroke-width="1.7" fill="#fdf3ee">
+    <line x1="560" y1="226" x2="638" y2="226" marker-end="url(#ar-fc)"/>
+    <text x="586" y="219" font-size="10" fill="#b0553a" stroke="none">No</text>
+    <rect x="640" y="200" width="175" height="54" rx="6"/>
+    <text x="727" y="224" text-anchor="middle" font-size="11.5" fill="#7a3421" stroke="none">Show inline error</text>
+    <text x="727" y="242" text-anchor="middle" font-size="9.5" fill="#7a3421" stroke="none">(amount must be numeric)</text>
+    <polyline points="727,200 727,151 566,151" fill="none" marker-end="url(#ar-fc)"/>
+  </g>
+
+  <!-- branch: token invalid -->
+  <g stroke="#b0553a" stroke-width="1.7" fill="#fdf3ee">
+    <line x1="560" y1="372" x2="638" y2="372" marker-end="url(#ar-fc)"/>
+    <text x="586" y="365" font-size="10" fill="#b0553a" stroke="none">No</text>
+    <rect x="640" y="344" width="185" height="56" rx="6"/>
+    <text x="732" y="368" text-anchor="middle" font-size="11.5" fill="#7a3421" stroke="none">HTTP 401</text>
+    <text x="732" y="386" text-anchor="middle" font-size="10.5" fill="#7a3421" stroke="none">clear token → /login</text>
+    <polyline points="825,372 858,372 858,850 522,850" fill="none" marker-end="url(#ar-fc)"/>
+  </g>
+
+  <!-- branch: server invalid -->
+  <g stroke="#b0553a" stroke-width="1.7" fill="#fdf3ee">
+    <line x1="340" y1="460" x2="262" y2="460" marker-end="url(#ar-fc)"/>
+    <text x="300" y="453" font-size="10" fill="#b0553a" stroke="none">No</text>
+    <rect x="80" y="436" width="180" height="48" rx="6"/>
+    <text x="170" y="465" text-anchor="middle" font-size="11.5" fill="#7a3421" stroke="none">HTTP 400 + message</text>
+    <polyline points="170,436 170,151 334,151" fill="none" marker-end="url(#ar-fc)"/>
+  </g>
+
+  <!-- branch: notification exists -->
+  <g stroke="#78816a" stroke-width="1.7" fill="#eef1e9">
+    <line x1="560" y1="664" x2="638" y2="664" marker-end="url(#ar-fc)"/>
+    <text x="586" y="657" font-size="10" fill="#5c6350" stroke="none">Yes</text>
+    <rect x="640" y="638" width="180" height="52" rx="6"/>
+    <text x="730" y="660" text-anchor="middle" font-size="11.5" fill="#3f4637" stroke="none">Skip — key exists</text>
+    <text x="730" y="678" text-anchor="middle" font-size="9.5" fill="#3f4637" stroke="none">(alert never repeats)</text>
+  </g>
+</svg>
+</figure>
+<p class="cap">Figure 5 — Flowchart of the add-transaction process with validation and notification de-duplication</p>
+
+<h3>5.6 Project Structure</h3>
+<pre><code>ExpenseTracker/
+├── server/                     # Express REST API
+│   └── src/
+│       ├── config/env.js       # ONLY file reading process.env (defaults)
+│       ├── config/db.js        # mongoose.connect + exit(1) on failure
+│       ├── models/             # 7 models: User, Transaction, Category,
+│       │                       # Budget, SavingsGoal, RecurringExpense, Notification
+│       ├── middleware/         # auth.js (protect), error.js, upload.js (Multer)
+│       ├── utils/              # sanitize, processRecurring, notify,
+│       │                       # defaultCategories, buildCsv, budgetStatus
+│       ├── controllers/        # 8 controllers (~1,200 lines total)
+│       ├── routes/             # 8 routers → 40 endpoints (+ /api/health)
+│       ├── seed/seed.js        # 2 demo users + realistic data
+│       ├── uploads/            # receipt images (git-ignored)
+│       └── app.js, server.js
+└── client/                     # React SPA (Vite)
+    └── src/
+        ├── config/env.js       # ONLY file reading import.meta.env
+        ├── themes/             # 8 theme files + registry (getTheme/applyTheme)
+        ├── features/           # 8 Redux slices + store/index.js
+        ├── services/api.js     # Axios instance + interceptors
+        ├── components/         # Modal, EmptyState, Loader, ProgressBar,
+        │                       # charts/MonthlyChart, layout/{Sidebar,Navbar,MainLayout}
+        ├── pages/              # 11 pages (Dashboard … Profile)
+        ├── hooks/useDebounce.js
+        ├── utils/              # amount.js, format.js, constants.js
+        └── index.css           # CSS variables + component classes</code></pre>
+
+<!-- ============================ 6. DATABASE ============================ -->
+<h2 class="pb">6. Database Design — ER Diagram &amp; Schema</h2>
+
+<h3>6.1 Entity-Relationship Diagram</h3>
+<figure>
+<svg viewBox="0 0 880 560" width="100%" xmlns="http://www.w3.org/2000/svg" font-family="Arial, Helvetica, sans-serif">
+  <rect x="1" y="1" width="878" height="558" fill="#fbfaf7" stroke="#d7d1c7"/>
+  <defs>
+    <marker id="crow" markerWidth="12" markerHeight="12" refX="10" refY="6" orient="auto">
+      <path d="M2,6 L11,1 M2,6 L11,11 M2,6 L11,6" stroke="#3a2f27" fill="none" stroke-width="1.3"/>
+    </marker>
+  </defs>
+
+  <!-- USER -->
+  <g>
+    <rect x="40" y="200" width="190" height="175" rx="6" fill="#3a2f27"/>
+    <rect x="40" y="200" width="190" height="26" rx="6" fill="#78816a"/>
+    <text x="135" y="218" text-anchor="middle" font-size="13" font-weight="bold" fill="#ffffff">USER</text>
+    <g font-size="11" fill="#f5f2ec">
+      <text x="52" y="245">🔑 _id</text>
+      <text x="52" y="264">name</text>
+      <text x="52" y="283">email  (unique)</text>
+      <text x="52" y="302">password (bcrypt)</text>
+      <text x="52" y="321">currency</text>
+      <text x="52" y="340">monthlyIncome</text>
+      <text x="52" y="355">timestamps</text>
+    </g>
+  </g>
+
+  <!-- TRANSACTION -->
+  <g>
+    <rect x="330" y="40" width="230" height="150" rx="6" fill="#ffffff" stroke="#3a2f27" stroke-width="1.5"/>
+    <rect x="330" y="40" width="230" height="26" fill="#e9dfd1" stroke="#3a2f27" stroke-width="1.5"/>
+    <text x="445" y="58" text-anchor="middle" font-size="13" font-weight="bold" fill="#3a2f27">TRANSACTION</text>
+    <g font-size="11" fill="#1c1a17">
+      <text x="342" y="84">🔑 _id · 🔑 user</text>
+      <text x="342" y="102">type (income|expense)</text>
+      <text x="342" y="120">amount (≥ 0.01)</text>
+      <text x="342" y="138">category → Category</text>
+      <text x="342" y="156">description · date</text>
+      <text x="342" y="174">paymentMethod · tags[] · receipt</text>
+      <text x="342" y="188">isFavorite · isRecurring</text>
+    </g>
+  </g>
+
+  <!-- CATEGORY -->
+  <g>
+    <rect x="330" y="230" width="230" height="112" rx="6" fill="#ffffff" stroke="#3a2f27" stroke-width="1.5"/>
+    <rect x="330" y="230" width="230" height="26" fill="#e9dfd1" stroke="#3a2f27" stroke-width="1.5"/>
+    <text x="445" y="248" text-anchor="middle" font-size="13" font-weight="bold" fill="#3a2f27">CATEGORY</text>
+    <g font-size="11" fill="#1c1a17">
+      <text x="342" y="274">🔑 _id · 🔑 user</text>
+      <text x="342" y="292">name · type (income|expense)</text>
+      <text x="342" y="310">icon · color</text>
+      <text x="342" y="330">unique (user, name, type)</text>
+    </g>
+  </g>
+
+  <!-- BUDGET -->
+  <g>
+    <rect x="640" y="40" width="210" height="112" rx="6" fill="#ffffff" stroke="#3a2f27" stroke-width="1.5"/>
+    <rect x="640" y="40" width="210" height="26" fill="#e9dfd1" stroke="#3a2f27" stroke-width="1.5"/>
+    <text x="745" y="58" text-anchor="middle" font-size="13" font-weight="bold" fill="#3a2f27">BUDGET</text>
+    <g font-size="11" fill="#1c1a17">
+      <text x="652" y="84">🔑 _id · 🔑 user</text>
+      <text x="652" y="102">category → Category</text>
+      <text x="652" y="120">amount · month · year</text>
+      <text x="652" y="140">unique (user,month,year,cat)</text>
+    </g>
+  </g>
+
+  <!-- SAVINGS GOAL -->
+  <g>
+    <rect x="640" y="185" width="210" height="124" rx="6" fill="#ffffff" stroke="#3a2f27" stroke-width="1.5"/>
+    <rect x="640" y="185" width="210" height="26" fill="#e9dfd1" stroke="#3a2f27" stroke-width="1.5"/>
+    <text x="745" y="203" text-anchor="middle" font-size="13" font-weight="bold" fill="#3a2f27">SAVINGS GOAL</text>
+    <g font-size="11" fill="#1c1a17">
+      <text x="652" y="229">🔑 _id · 🔑 user</text>
+      <text x="652" y="247">title · icon</text>
+      <text x="652" y="265">targetAmount · currentAmount</text>
+      <text x="652" y="283">targetDate · description</text>
+      <text x="652" y="301">timestamps</text>
+    </g>
+  </g>
+
+  <!-- RECURRING -->
+  <g>
+    <rect x="330" y="390" width="230" height="140" rx="6" fill="#ffffff" stroke="#3a2f27" stroke-width="1.5"/>
+    <rect x="330" y="390" width="230" height="26" fill="#e9dfd1" stroke="#3a2f27" stroke-width="1.5"/>
+    <text x="445" y="408" text-anchor="middle" font-size="13" font-weight="bold" fill="#3a2f27">RECURRING EXPENSE</text>
+    <g font-size="11" fill="#1c1a17">
+      <text x="342" y="434">🔑 _id · 🔑 user</text>
+      <text x="342" y="452">title · amount</text>
+      <text x="342" y="470">category → Category</text>
+      <text x="342" y="488">frequency · nextDate</text>
+      <text x="342" y="506">paymentMethod · active</text>
+      <text x="342" y="524">→ posts Transaction when due</text>
+    </g>
+  </g>
+
+  <!-- NOTIFICATION -->
+  <g>
+    <rect x="640" y="355" width="210" height="124" rx="6" fill="#ffffff" stroke="#3a2f27" stroke-width="1.5"/>
+    <rect x="640" y="355" width="210" height="26" fill="#e9dfd1" stroke="#3a2f27" stroke-width="1.5"/>
+    <text x="745" y="373" text-anchor="middle" font-size="13" font-weight="bold" fill="#3a2f27">NOTIFICATION</text>
+    <g font-size="11" fill="#1c1a17">
+      <text x="652" y="399">🔑 _id · 🔑 user</text>
+      <text x="652" y="417">type · title · message</text>
+      <text x="652" y="435">key (de-duplication)</text>
+      <text x="652" y="453">read · timestamps</text>
+    </g>
+  </g>
+
+  <!-- relations from USER -->
+  <g stroke="#3a2f27" stroke-width="1.5" fill="none" marker-end="url(#crow)">
+    <line x1="230" y1="225" x2="328" y2="120"/>
+    <line x1="230" y1="255" x2="328" y2="270"/>
+    <line x1="230" y1="320" x2="328" y2="450"/>
+    <polyline points="135,200 135,14 745,14 745,38"/>
+    <polyline points="185,200 185,30 620,30 620,245 638,245"/>
+    <polyline points="135,375 135,548 745,548 745,481"/>
+  </g>
+  <!-- category references -->
+  <g stroke="#78816a" stroke-width="1.5" fill="none" stroke-dasharray="5 4" marker-end="url(#crow)">
+    <line x1="445" y1="190" x2="445" y2="228"/>
+    <polyline points="640,120 600,120 600,300 564,300"/>
+    <line x1="470" y1="390" x2="470" y2="344"/>
+  </g>
+  <g font-size="11" fill="#5f584f">
+    <text x="274" y="164">1 : N</text>
+    <text x="268" y="250">1 : N</text>
+    <text x="244" y="350">1 : N</text>
+    <text x="143" y="62">1 : N</text>
+    <text x="626" y="172">1 : N</text>
+    <text x="400" y="541" text-anchor="middle">1 : N</text>
+  </g>
+  <g font-size="10.5" fill="#78816a">
+    <text x="453" y="215">N : 1</text>
+    <text x="594" y="205" text-anchor="end">N : 1</text>
+    <text x="478" y="373">N : 1</text>
+  </g>
+  <g font-size="10.5" fill="#5f584f">
+    <text x="40" y="556" font-style="italic">Solid line = ownership (User) · dashed line = reference (Category)</text>
+  </g>
+</svg>
+</figure>
+<p class="cap">Figure 6 — Entity-Relationship Diagram (7 entities, all child records keyed by <code>user</code>)</p>
+
+<h3>6.2 Schema Definitions</h3>
+<table>
+  <tr><th style="width:16%">Collection</th><th style="width:52%">Key fields (type / constraint)</th><th>Indexes &amp; notes</th></tr>
+  <tr><td><strong>User</strong></td><td><code>name</code> (2–50 chars), <code>email</code> (unique, regex-validated, lowercase), <code>password</code> (min 6, <code>select:false</code>, bcrypt-hashed in a <code>pre('save')</code> hook), <code>profileImage</code>, <code>currency</code> (enum of 7, default INR), <code>monthlyIncome</code> (min 0)</td><td>Unique index on <code>email</code>; instance methods <code>matchPassword()</code> and <code>getSignedJwtToken()</code>.</td></tr>
+  <tr><td><strong>Transaction</strong></td><td><code>user</code> (ref), <code>type</code> (income|expense), <code>amount</code> (min 0.01), <code>category</code> (ref, required), <code>description</code> (≤200), <code>date</code>, <code>paymentMethod</code> (7-value enum), <code>tags[]</code>, <code>notes</code> (≤500), <code>receipt</code>, <code>isFavorite</code>, <code>isRecurring</code>, <code>recurringExpense</code> (ref)</td><td><code>{user:1,date:-1}</code>, <code>{user:1,type:1}</code>, <code>{user:1,category:1}</code></td></tr>
+  <tr><td><strong>Category</strong></td><td><code>user</code>, <code>name</code> (≤50), <code>type</code> (income|expense), <code>icon</code> (emoji), <code>color</code> (hex)</td><td>Unique compound <code>{user,name,type}</code> — one name can exist once per type per user.</td></tr>
+  <tr><td><strong>Budget</strong></td><td><code>user</code>, <code>category</code> (ref), <code>amount</code> (min 0), <code>month</code> (1–12), <code>year</code></td><td>Unique compound <code>{user,month,year,category}</code> — exactly one budget per category per month.</td></tr>
+  <tr><td><strong>SavingsGoal</strong></td><td><code>user</code>, <code>title</code> (≤100), <code>targetAmount</code> (min 1), <code>currentAmount</code> (min 0, default 0), <code>targetDate</code>, <code>description</code>, <code>icon</code></td><td>Timestamps; progress computed at read time.</td></tr>
+  <tr><td><strong>RecurringExpense</strong></td><td><code>user</code>, <code>title</code>, <code>amount</code>, <code>category</code> (ref), <code>frequency</code> (daily|weekly|monthly|yearly), <code>nextDate</code>, <code>paymentMethod</code>, <code>active</code> (default true)</td><td>When <code>nextDate ≤ today</code>, the worker posts a linked Transaction and advances the date.</td></tr>
+  <tr><td><strong>Notification</strong></td><td><code>user</code>, <code>title</code>, <code>message</code>, <code>type</code> (budget_warning|budget_exceeded|goal_progress|recurring_due|info), <code>key</code>, <code>read</code></td><td><code>key</code> is the de-duplication key checked before insert.</td></tr>
+</table>
+<div class="note"><strong>Design decision:</strong> categories are <em>referenced</em>, not copied into transactions. Renaming a category instantly updates every historical view of it, and the analytics pipeline uses <code>$lookup</code> to join name, icon and colour at read time. Every query in every controller includes <code>user: req.user._id</code>, so users can never see each other's data.</div>
+
+<!-- ============================ 7. MODULES ============================ -->
+<h2 class="pb">7. Module Description &amp; Feature Study</h2>
+<table>
+  <tr><th style="width:5%">#</th><th style="width:20%">Module</th><th>Detailed description</th></tr>
+  <tr><td>1</td><td>Authentication</td><td>Register (name ≥2 chars, valid email, password ≥6, confirm-password check on the client), login, <code>GET /me</code> hydration on every app load, profile update (name, currency, monthly income target). JWT is stored in <code>localStorage</code> and attached automatically to every request.</td></tr>
+  <tr><td>2</td><td>Dashboard</td><td>One call to <code>GET /analytics/dashboard</code> returns balance hero card (total balance, all income, all expense, this month), month income/expense cards, six-month bar chart, category donut with top-4 percentages, budget status bars and recent transactions. Shows a time-based greeting and a loading skeleton grid while fetching.</td></tr>
+  <tr><td>3</td><td>Transactions</td><td>Add/edit/delete records; debounced search (300 ms); filter panel for type, category, payment method, date range and favourites-only with an active-filter count badge; pagination (10/page); receipt upload, favourite star, edit and delete per row; a new row flashes for 700 ms; deep link <code>?new=1</code> auto-opens the add modal.</td></tr>
+  <tr><td>4</td><td>Categories</td><td>Expense/Income tab switch, card grid with emoji icon on a tinted background, 20-icon picker and 12-colour swatch picker in the modal. Deleting a category that a recurring expense still uses is blocked with a clear message.</td></tr>
+  <tr><td>5</td><td>Budgets</td><td>Month/year navigation; overall summary bar (spent vs total budget); per-category cards with status label — <em>On track</em>, <em>Near limit</em> (≥80%) or <em>Exceeded</em> (≥100%) — spent-of-budget, progress bar and remaining/over amount. The add modal only offers expense categories not already budgeted for that month.</td></tr>
+  <tr><td>6</td><td>Savings Goals</td><td>Card grid with emoji, title, target date, current-of-target amounts, progress bar and "% complete"; <em>Add money</em> modal for contributions; edit/delete; a notification fires once when a goal reaches 100%.</td></tr>
+  <tr><td>7</td><td>Recurring Expenses</td><td>Info banner explaining auto-posting; items split into <em>Active</em> and <em>Paused</em> sections with counts; cards show category icon, title, frequency, next date, amount, payment method and a pause/resume toggle. Due items post automatically as transactions.</td></tr>
+  <tr><td>8</td><td>Analytics</td><td>Three yearly KPI cards (income, expenses, savings), a vertical chart-type selector (Bar / Line / Area / Donut / Pie) that swaps the chart instantly without re-fetching, spending breakdown per category with percentages, and a payment-method list with totals and counts.</td></tr>
+  <tr><td>9</td><td>Monthly Reports</td><td>Month navigator; insight banner ("You spent 48% less than last month"); five KPI cards each with "% vs last"; six-month income/expense chart; category donut; category analysis table (this month, last month, change %, share); top spending categories ranked bars; payment-method breakdown; month-scoped CSV export.</td></tr>
+  <tr><td>10</td><td>Notifications</td><td>Budget warning (≥80%), budget exceeded (≥100%), goal reached, recurring posted and welcome alerts. Every alert carries a stable key so the same warning never repeats within a month. Bell dropdown polls every 60 s with an unread badge, "Mark all read" and per-item read.</td></tr>
+  <tr><td>11</td><td>CSV Export</td><td>Applies the current filters (or a selected month) server-side and downloads a date-stamped CSV built by the <code>buildCsv</code> helper with proper quote escaping.</td></tr>
+  <tr><td>12</td><td>Receipts &amp; Favourites</td><td>Attach an image to a transaction with a lightbox preview; star frequent transactions and open a favourites-only list.</td></tr>
+  <tr><td>13</td><td>Appearance</td><td>Light/dark mode toggle in the navbar and eight selectable colour themes under Profile → Appearance, both persisted in <code>localStorage</code> and re-applied on every load.</td></tr>
+  <tr><td>14</td><td>UX Polish</td><td>Loading skeletons on every page, friendly empty states, 150–250 ms CSS micro-interactions, Escape-to-close modals, visible focus outlines and <code>prefers-reduced-motion</code> support.</td></tr>
+  <tr><td>15</td><td>Validation</td><td>Amount sanitization while typing (digits only, one dot, max two decimals) mirrored by a server-side <code>toAmount</code> check that rejects invalid values with HTTP 400.</td></tr>
+</table>
+
+<!-- ============================ 8. API ============================ -->
+<h2 class="pb">8. API Reference</h2>
+<p>The application exposes <strong>41 endpoints</strong> (40 in routers + 1 health check). Every route except register, login and health sits behind the <code>protect</code> middleware — <strong>38 of 41 endpoints are authenticated</strong>. All responses share the same <code>{ success, data | message }</code> envelope, which keeps front-end error handling uniform.</p>
+
+<table>
+  <tr><th style="width:22%">Router</th><th style="width:10%">Method</th><th>Endpoint &amp; purpose</th></tr>
+  <tr><td rowspan="4"><code>/api/auth</code></td><td>POST</td><td><code>/register</code> — create account, returns JWT</td></tr>
+  <tr><td>POST</td><td><code>/login</code> — verify credentials, returns JWT</td></tr>
+  <tr><td>GET</td><td><code>/me</code> — current user profile <em>(protected)</em></td></tr>
+  <tr><td>PUT</td><td><code>/profile</code> — update name / currency / monthly income <em>(protected)</em></td></tr>
+
+  <tr><td rowspan="9"><code>/api/transactions</code></td><td>GET</td><td><code>/</code> — list with search, filters and pagination</td></tr>
+  <tr><td>POST</td><td><code>/</code> — create transaction</td></tr>
+  <tr><td>GET</td><td><code>/:id</code> — fetch one transaction</td></tr>
+  <tr><td>PUT</td><td><code>/:id</code> — update transaction</td></tr>
+  <tr><td>DELETE</td><td><code>/:id</code> — delete transaction (also removes receipt file)</td></tr>
+  <tr><td>GET</td><td><code>/csv</code> — filtered CSV export</td></tr>
+  <tr><td>GET</td><td><code>/favorites</code> — favourites-only list</td></tr>
+  <tr><td>PATCH</td><td><code>/:id/favorite</code> — toggle favourite</td></tr>
+  <tr><td>PATCH</td><td><code>/:id/receipt</code> — upload receipt image (Multer)</td></tr>
+
+  <tr><td rowspan="4"><code>/api/categories</code></td><td>GET</td><td><code>/</code> — list categories (optional <code>type</code> filter)</td></tr>
+  <tr><td>POST</td><td><code>/</code> — create category</td></tr>
+  <tr><td>PUT</td><td><code>/:id</code> — update category</td></tr>
+  <tr><td>DELETE</td><td><code>/:id</code> — delete (blocked if a recurring expense uses it)</td></tr>
+
+  <tr><td rowspan="4"><code>/api/budgets</code></td><td>GET</td><td><code>/</code> — budgets for <code>month&amp;year</code> with computed status summary</td></tr>
+  <tr><td>POST</td><td><code>/</code> — create budget</td></tr>
+  <tr><td>PUT</td><td><code>/:id</code> — update budget</td></tr>
+  <tr><td>DELETE</td><td><code>/:id</code> — delete budget</td></tr>
+
+  <tr><td rowspan="5"><code>/api/goals</code></td><td>GET</td><td><code>/</code> — list savings goals</td></tr>
+  <tr><td>POST</td><td><code>/</code> — create goal</td></tr>
+  <tr><td>PUT</td><td><code>/:id</code> — update goal</td></tr>
+  <tr><td>DELETE</td><td><code>/:id</code> — delete goal</td></tr>
+  <tr><td>POST</td><td><code>/:id/add-money</code> — contribute to a goal</td></tr>
+
+  <tr><td rowspan="5"><code>/api/recurring-expenses</code></td><td>GET</td><td><code>/</code> — list recurring plans</td></tr>
+  <tr><td>POST</td><td><code>/</code> — create plan</td></tr>
+  <tr><td>PUT</td><td><code>/:id</code> — update plan</td></tr>
+  <tr><td>DELETE</td><td><code>/:id</code> — delete plan</td></tr>
+  <tr><td>PATCH</td><td><code>/:id/toggle</code> — pause / resume</td></tr>
+
+  <tr><td rowspan="5"><code>/api/analytics</code></td><td>GET</td><td><code>/dashboard</code> — summary, series, category breakdown, budget status, recent tx</td></tr>
+  <tr><td>GET</td><td><code>/monthly</code> — income vs expense by month for a year</td></tr>
+  <tr><td>GET</td><td><code>/categories</code> — spending by category for a month</td></tr>
+  <tr><td>GET</td><td><code>/payment-methods</code> — payment split for a month</td></tr>
+  <tr><td>GET</td><td><code>/reports</code> — month-over-month report payload</td></tr>
+
+  <tr><td rowspan="4"><code>/api/notifications</code></td><td>GET</td><td><code>/</code> — list notifications + unread count</td></tr>
+  <tr><td>PATCH</td><td><code>/read-all</code> — mark all read</td></tr>
+  <tr><td>PATCH</td><td><code>/:id/read</code> — mark one read</td></tr>
+  <tr><td>DELETE</td><td><code>/:id</code> — delete one</td></tr>
+
+  <tr><td><code>/api/health</code></td><td>GET</td><td><code>/</code> — liveness check (public, used during testing)</td></tr>
+</table>
+
+<!-- ============================ 9. UI ============================ -->
+<h2 class="pb">9. User Interface, Design System &amp; Screenshots</h2>
+
+<h3>9.1 Design System — Option 8 (Warm White + Espresso + Sage)</h3>
+<p>The default theme uses a warm white background with espresso brown and sage green accents. All colours are CSS variables (<code>--bg</code>, <code>--text</code>, <code>--card</code>, <code>--border</code>, <code>--primary</code>, <code>--accent</code>, <code>--sage</code>, <code>--beige</code>, …) defined for both light and dark mode, so changing theme or mode only swaps variables — no component ever contains colour logic. The full interface uses the <strong>JetBrains Mono</strong> typeface for a distinctive engineering-first look, with a subtle 3.5% fractal-noise paper texture on the background.</p>
+<table>
+  <tr><th style="width:28%">Token</th><th style="width:18%">Hex</th><th>Usage</th></tr>
+  <tr><td>Background (<code>--bg</code>)</td><td><code>#FAF8F3</code></td><td>Page background</td></tr>
+  <tr><td>Text (<code>--text</code>)</td><td><code>#29231F</code></td><td>Primary text</td></tr>
+  <tr><td>Primary — Espresso</td><td><code>#493B32</code></td><td>Buttons, active states, sidebar brand</td></tr>
+  <tr><td>Accent — Sage</td><td><code>#78816A</code></td><td>Charts, links, highlights</td></tr>
+  <tr><td>Sage tint (<code>--sage</code>)</td><td><code>#E9EDE4</code></td><td>Sidebar, soft panels, chips</td></tr>
+  <tr><td>Beige tint (<code>--beige</code>)</td><td><code>#E9DFD1</code></td><td>Balance and stat cards</td></tr>
+  <tr><td>Card (<code>--card</code>)</td><td><code>#FFFFFF</code></td><td>Surfaces in light mode</td></tr>
+</table>
+
+<h3>9.2 Theme Engine &amp; Dark Mode</h3>
+<p>Each of the eight themes lives in its own file under <code>client/src/themes/</code> — Warm Ivory Forest, Off-White Navy, Cream Burgundy, White Terracotta, White Olive, Pearl Plum, White Cobalt and <strong>Warm Espresso Sage</strong> (default). A small registry exposes <code>getTheme(id)</code> and <code>applyTheme(theme, dark)</code>, which writes twelve CSS custom properties on <code>:root</code>. The choice is made under Profile → Appearance and persisted in <code>localStorage</code> together with the dark-mode flag; <code>App.jsx</code> re-applies both on every load. Tailwind is configured with <code>darkMode: 'class'</code> and colour names that map directly to those variables.</p>
+
+<h3>9.3 Interaction &amp; Accessibility</h3>
+<p>Transitions (150–300 ms) are pure CSS: hover lift on buttons and cards, modal fade+scale (200 ms), progress-bar fill (300 ms), skeleton shimmer and a 700 ms flash highlight on newly added rows. Modals close with the Escape key, inputs are labelled, and focus outlines use a 2 px accent ring. Amount inputs use <code>inputMode="decimal"</code> and hide the browser number spinners. Every page has a loading skeleton and a friendly empty state instead of a blank table, and <code>prefers-reduced-motion</code> collapses all animation durations to 0.01 ms.</p>
+
+<h3 class="pb">9.4 Screenshots (Category-wise)</h3>
+<p>All 15 captured screens are grouped below by module category. Each figure is the actual running application (seeded demo account, desktop viewport, light mode unless stated).</p>
+
+<h4>9.4.1 Authentication</h4>
+<figure><img src="images/01-login.png" alt="Login page" /></figure>
+<p class="cap">Figure 7 — Login: split-screen hero, demo-credential hint and JWT-based sign-in</p>
+
+<h4>9.4.2 Dashboard</h4>
+<figure><img src="images/02-dashboard.png" alt="Dashboard" /></figure>
+<p class="cap">Figure 8 — Dashboard (light): total balance hero card, month income/expense, six-month chart, category donut, budget status and recent transactions</p>
+<figure><img src="images/13-dashboard-dark.png" alt="Dashboard dark mode" /></figure>
+<p class="cap">Figure 9 — Dashboard (dark mode): identical layout with the dark palette applied through CSS variables</p>
+
+<h4>9.4.3 Transactions</h4>
+<figure><img src="images/03-transactions.png" alt="Transactions" /></figure>
+<p class="cap">Figure 10 — Transactions: debounced search, filter panel, favourites toggle, pagination and CSV export</p>
+<figure><img src="images/04-add-transaction-modal.png" alt="Add transaction modal" /></figure>
+<p class="cap">Figure 11 — Add Transaction modal: income/expense segmented toggle, sanitised amount, category filtered by type, tags and payment method</p>
+
+<h4>9.4.4 Budgets</h4>
+<figure><img src="images/05-budgets.png" alt="Budgets" /></figure>
+<p class="cap">Figure 12 — Budgets: month navigation, overall summary and per-category status (On track / Near limit / Exceeded)</p>
+
+<h4>9.4.5 Analytics &amp; Charts</h4>
+<figure><img src="images/06-analytics-bar.png" alt="Analytics bar chart" /></figure>
+<p class="cap">Figure 13 — Analytics with the Bar chart selected and the vertical chart-type selector</p>
+<figure><img src="images/07-analytics-line.png" alt="Analytics line chart" /></figure>
+<p class="cap">Figure 14 — The same data switched to a Line chart instantly, without any re-fetch</p>
+
+<h4>9.4.6 Monthly Reports</h4>
+<figure><img src="images/08-reports.png" alt="Monthly report" /></figure>
+<p class="cap">Figure 15 — Monthly report: month-over-month insight banner, five KPI cards, six-month chart, category change % table and top categories</p>
+
+<h4>9.4.7 Savings Goals</h4>
+<figure><img src="images/09-goals.png" alt="Savings goals" /></figure>
+<p class="cap">Figure 16 — Savings goals with progress bars, "% complete" and the Add-money contribution modal</p>
+
+<h4>9.4.8 Recurring Expenses</h4>
+<figure><img src="images/10-recurring.png" alt="Recurring expenses" /></figure>
+<p class="cap">Figure 17 — Recurring expenses split into Active and Paused plans, with next due date and pause/resume toggle</p>
+
+<h4>9.4.9 Categories</h4>
+<figure><img src="images/11-categories.png" alt="Categories" /></figure>
+<p class="cap">Figure 18 — Categories: expense/income tabs, emoji icon picker and 12-colour swatch picker</p>
+
+<h4>9.4.10 Appearance &amp; Themes</h4>
+<figure><img src="images/12-theme-selector.png" alt="Theme selector" /></figure>
+<p class="cap">Figure 19 — Profile → Appearance: eight selectable colour themes with live swatches</p>
+<figure><img src="images/14-theme-burgundy.png" alt="Burgundy theme" /></figure>
+<p class="cap">Figure 20 — An alternate theme (Cream Burgundy) demonstrating the pluggable theme engine</p>
+
+<h4>9.4.11 UX States</h4>
+<figure><img src="images/15-empty-state.png" alt="Empty state" /></figure>
+<p class="cap">Figure 21 — Friendly empty state instead of a blank table (every list page has one, plus loading skeletons)</p>
+
+<table>
+  <tr><th style="width:34%">Category</th><th style="width:20%">Screens</th><th>Figures</th></tr>
+  <tr><td>Authentication</td><td>1</td><td>7</td></tr>
+  <tr><td>Dashboard</td><td>2 (light + dark)</td><td>8–9</td></tr>
+  <tr><td>Transactions</td><td>2 (list + modal)</td><td>10–11</td></tr>
+  <tr><td>Budgets</td><td>1</td><td>12</td></tr>
+  <tr><td>Analytics &amp; Charts</td><td>2 (bar + line)</td><td>13–14</td></tr>
+  <tr><td>Monthly Reports</td><td>1</td><td>15</td></tr>
+  <tr><td>Savings Goals</td><td>1</td><td>16</td></tr>
+  <tr><td>Recurring Expenses</td><td>1</td><td>17</td></tr>
+  <tr><td>Categories</td><td>1</td><td>18</td></tr>
+  <tr><td>Appearance &amp; Themes</td><td>2 (selector + theme)</td><td>19–20</td></tr>
+  <tr><td>UX States</td><td>1</td><td>21</td></tr>
+  <tr><th>Total</th><th>15 screens</th><th>Figures 7–21</th></tr>
+</table>
+
+<!-- ============================ 10. IMPLEMENTATION ============================ -->
+<h2 class="pb">10. Implementation Highlights (with code)</h2>
+<p>The seven annotated code figures shipped with this report are grouped by tier below — four from the backend (server logic) and three from the frontend (React / theming / validation).</p>
+
+<h3>10.1 Backend (Server-side) Implementation</h3>
+
+<h4>10.1.1 Recurring Expense Auto-Posting</h4>
+<p>Whenever the dashboard is loaded, every active recurring item whose <code>nextDate</code> is today or earlier is converted into a real transaction, its next due date is advanced by one frequency step, and a notification is created. The posted transaction keeps a link back to its recurring parent so the UI can mark it.</p>
+<figure><img class="code" src="images/code-02-recurring-auto-post.png" alt="processRecurring code" /></figure>
+<p class="cap">Figure 22 — <code>server/src/utils/processRecurring.js</code> — auto-posting of due recurring expenses</p>
+<pre><code>const dueItems = await RecurringExpense.find({
+  user: userId,
+  active: true,
+  nextDate: { $lte: today },
+});
+
+for (const item of dueItems) {
+  await Transaction.create({
+    user: userId, type: 'expense',
+    amount: item.amount, category: item.category,
+    description: item.title, date: item.nextDate,
+    paymentMethod: item.paymentMethod,
+    isRecurring: true, recurringExpense: item._id,
+  });
+
+  item.nextDate = nextDateAfter(item.nextDate, item.frequency);
+  await item.save();
+}</code></pre>
+
+<h4>10.1.2 Smart Notifications with De-duplication</h4>
+<p>Each alert carries a stable key such as <code>budget:2026:10:Food:warn</code>. Before creating a notification the server checks whether that key already exists, so the same warning never repeats inside a month — the bell stays useful instead of noisy.</p>
+<figure><img class="code" src="images/code-03-smart-notifications.png" alt="notify.js code" /></figure>
+<p class="cap">Figure 23 — <code>server/src/utils/notify.js</code> — create-once helper with stable de-duplication keys</p>
+<pre><code>const createOnce = async (userId, type, title, message, key) =&gt; {
+  const alreadySent = await Notification.findOne({ user: userId, key });
+  if (alreadySent) return;
+
+  await Notification.create({ user: userId, type, title, message, key });
+};</code></pre>
+<p class="small">Key formats: <code>budget:{year}:{month}:{category}:warn</code> (≥80%), <code>budget:{year}:{month}:{category}:over</code> (≥100%), <code>goal:{id}:reached</code>, and <code>recurring:{userId}:{title}:{timestamp}</code>.</p>
+
+<h4>10.1.3 Dashboard &amp; Report Aggregation</h4>
+<p>Totals, six-month series and category breakdowns are computed with MongoDB aggregation pipelines executed with sequential <code>await</code> calls for readability. Categories are joined with <code>$lookup</code> so name, icon and colour travel with each row.</p>
+<figure><img class="code" src="images/code-01-dashboard-aggregation.png" alt="aggregation code" /></figure>
+<p class="cap">Figure 24 — <code>server/src/controllers/analyticsController.js</code> — dashboard aggregation</p>
+<pre><code>const categoryRows = await Transaction.aggregate([
+  { $match: { user: userId, type: 'expense',
+      date: { $gte: win.start, $lte: win.end } } },
+  { $lookup: { from: 'categories', localField: 'category',
+      foreignField: '_id', as: 'categoryDoc' } },
+  { $unwind: '$categoryDoc' },
+  { $group: {
+      _id: '$category',
+      name:  { $first: '$categoryDoc.name' },
+      icon:  { $first: '$categoryDoc.icon' },
+      color: { $first: '$categoryDoc.color' },
+      total: { $sum: '$amount' } } },
+  { $sort: { total: -1 } },
+]);</code></pre>
+<div class="note"><strong>Bug fixed here:</strong> inside <code>$group</code>, non-<code>_id</code> fields must be accumulated — a bare path raises <em>"The field 'x' must be an accumulator object"</em>. Fields such as name and type therefore use <code>{ $first: '$field' }</code>. The same correction was applied in three pipelines (dashboard, monthly series and reports).</div>
+
+<h4>10.1.4 CSV Export</h4>
+<figure><img class="code" src="images/code-07-csv-export.png" alt="CSV export code" /></figure>
+<p class="cap">Figure 25 — <code>server/src/controllers/transactionController.js</code> — CSV export endpoint</p>
+<pre><code>const buildCsv = (transactions) =&gt; {
+  const header = ['Date','Type','Description','Category',
+                  'Amount','Payment Method','Tags','Notes'];
+  const rows = [header.join(',')];
+
+  for (const item of transactions) {
+    const values = [ /* …8 columns… */ ];
+    const line = values
+      .map((v) =&gt; `"${String(v).replace(/"/g, '""')}"`)
+      .join(',');
+    rows.push(line);
+  }
+  return rows.join('\n');
+};</code></pre>
+<p>The endpoint applies the same filters as the on-screen list and streams a <code>text/csv</code> response with a date-stamped filename. On the client, the blob is turned into an object URL, downloaded through a temporary anchor and revoked immediately.</p>
+
+<h3 class="pb">10.2 Frontend (Client-side) Implementation</h3>
+
+<h4>10.2.1 Amount Validation on Both Ends</h4>
+<figure><img class="code" src="images/code-06-amount-sanitization.png" alt="amount sanitization code" /></figure>
+<p class="cap">Figure 26 — <code>client/src/utils/amount.js</code> — client-side amount sanitization</p>
+<pre><code>// server/src/utils/sanitize.js
+const toAmount = (value) =&gt; {
+  const number = Number(value);
+  if (!Number.isFinite(number) || number &lt;= 0) return null;
+  return Math.round(number * 100) / 100;   // 123.456 -&gt; 123.46
+};</code></pre>
+<p>The client's <code>sanitizeAmountInput</code> strips letters and minus signs while typing and caps the decimal places at two; the server independently converts and rejects invalid values with HTTP 400 — so <code>abc</code>, <code>-5</code> or a zero budget never reach the database.</p>
+
+<h4>10.2.2 Theme File = One File per Theme</h4>
+<figure><img class="code" src="images/code-04-theme-file.png" alt="theme file code" /></figure>
+<p class="cap">Figure 27 — <code>client/src/themes/option8WarmEspressoSage.js</code> — one theme = one separate file</p>
+<pre><code>export const applyTheme = (theme, dark) =&gt; {
+  const palette = dark ? theme.dark : theme.light;
+  const root = document.documentElement;
+
+  root.style.setProperty('--bg', palette.bg);
+  root.style.setProperty('--text', palette.text);
+  root.style.setProperty('--card', palette.card);
+  root.style.setProperty('--primary', palette.primary);
+  root.style.setProperty('--accent', palette.accent);
+  // … 12 variables in total
+};</code></pre>
+
+<h4>10.2.3 Instant Chart Selector</h4>
+<figure><img class="code" src="images/code-05-chart-selector.png" alt="chart selector code" /></figure>
+<p class="cap">Figure 28 — <code>client/src/pages/Analytics.jsx</code> — vertical multi-chart selector</p>
+<p>Analytics keeps the fetched data mounted and only swaps the chart component (Bar / Line / Area / Donut / Pie), so switching views is instant and never re-fetches from the server.</p>
+
+<h4>10.2.4 Axios Interceptors (single HTTP client)</h4>
+<pre><code>API.interceptors.request.use((config) =&gt; {
+  const token = localStorage.getItem('token');
+  if (token) config.headers.Authorization = `Bearer ${token}`;
+  return config;
+});
+
+API.interceptors.response.use(
+  (response) =&gt; response,
+  (error) =&gt; {
+    if (error.response &amp;&amp; error.response.status === 401) {
+      localStorage.removeItem('token');
+      if (window.location.pathname !== '/login')
+        window.location.href = '/login';
+    }
+    return Promise.reject(error);
+  }
+);</code></pre>
+<p>There is exactly one HTTP client in the application, so authentication behaviour is defined in one place instead of being repeated in every thunk.</p>
+
+<h4>10.3 Code Figure Index (category-wise)</h4>
+<table>
+  <tr><th style="width:10%">Figure</th><th style="width:26%">Category</th><th style="width:36%">Source file</th><th>Shows</th></tr>
+  <tr><td>22</td><td rowspan="4">Backend (server)</td><td><code>server/src/utils/processRecurring.js</code></td><td>Auto-posting of due recurring expenses</td></tr>
+  <tr><td>23</td><td><code>server/src/utils/notify.js</code></td><td>Create-once notifications with de-dup keys</td></tr>
+  <tr><td>24</td><td><code>server/src/controllers/analyticsController.js</code></td><td>Dashboard aggregation pipeline</td></tr>
+  <tr><td>25</td><td><code>server/src/controllers/transactionController.js</code></td><td>CSV export endpoint</td></tr>
+  <tr><td>26</td><td rowspan="4">Frontend (client)</td><td><code>client/src/utils/amount.js</code></td><td>Amount sanitization while typing</td></tr>
+  <tr><td>27</td><td><code>client/src/themes/option8WarmEspressoSage.js</code></td><td>One theme = one file (light + dark palettes)</td></tr>
+  <tr><td>28</td><td><code>client/src/pages/Analytics.jsx</code></td><td>Vertical multi-chart selector</td></tr>
+  <tr><td>—</td><td><code>client/src/services/api.js</code></td><td>Axios request/response interceptors (printed above)</td></tr>
+</table>
+
+<!-- ============================ 11. SECURITY ============================ -->
+<h2 class="pb">11. Security &amp; Data Validation</h2>
+<table>
+  <tr><th style="width:26%">Control</th><th>Implementation</th></tr>
+  <tr><td>Password storage</td><td>bcryptjs with 10 salt rounds inside a <code>pre('save')</code> hook; the field is <code>select:false</code> so it is never returned by any API response.</td></tr>
+  <tr><td>Session / auth</td><td>HS256 JWT signed with <code>JWT_SECRET</code>, 7-day expiry, sent as <code>Authorization: Bearer</code>; verified on every protected request along with a user-existence check. All 401 responses are deliberately generic (no signature-vs-expiry distinction).</td></tr>
+  <tr><td>Ownership scoping</td><td>Every find / update / delete includes <code>user: req.user._id</code> — a user can never read or modify another user's records even with a valid token.</td></tr>
+  <tr><td>Input validation</td><td>Mongoose schema validators (required, min/max, maxlength, enum, e-mail regex) plus <code>toAmount()</code> on numeric fields; invalid values return HTTP 400 with clear messages.</td></tr>
+  <tr><td>Mass-assignment protection</td><td>Controllers copy only whitelisted fields (e.g. <code>['type','category','description','date','paymentMethod','tags','notes','receipt','isFavorite']</code>) instead of spreading the request body.</td></tr>
+  <tr><td>HTTP hardening</td><td>helmet v7 default headers (CSP, HSTS, X-Frame-Options, X-Content-Type-Options, Referrer-Policy …) with only <code>Cross-Origin-Resource-Policy</code> relaxed for local images; CORS allow-list restricted to the single client URL; morgan request logging in development.</td></tr>
+  <tr><td>File uploads</td><td>Multer disk storage with an image-only MIME filter, a 5 MB size limit and a server-generated filename (<code>timestamp-random.ext</code>), so the user never controls the path; deletion uses <code>path.basename()</code> before <code>fs.unlink</code> to prevent path traversal.</td></tr>
+  <tr><td>Error handling</td><td>A central error handler maps <code>CastError</code> → 404, duplicate key (11000) → 400, <code>ValidationError</code> → 400 and never leaks stack traces to the client.</td></tr>
+  <tr><td>Configuration</td><td>Environment variables are read in exactly two files (<code>server/src/config/env.js</code>, <code>client/src/config/env.js</code>); secrets stay in a git-ignored <code>.env</code> with a committed <code>.env.example</code>.</td></tr>
+</table>
+
+<!-- ============================ 12. TESTING ============================ -->
+<h2 class="pb">12. Testing &amp; Test Cases</h2>
+<p>Testing was performed manually against the running API (health-check driven) and by exercising every screen in the browser, in both light and dark modes. The table below lists the principal test cases executed.</p>
+<table>
+  <tr><th style="width:6%">TC</th><th style="width:16%">Area</th><th style="width:40%">Test scenario</th><th style="width:22%">Expected result</th><th style="width:16%">Status</th></tr>
+  <tr><td>TC01</td><td>Health</td><td><code>GET /api/health</code></td><td>200 OK with status payload</td><td>Pass</td></tr>
+  <tr><td>TC02</td><td>Auth</td><td>Register a new user with valid details</td><td>200, JWT returned, user created</td><td>Pass</td></tr>
+  <tr><td>TC03</td><td>Auth</td><td>Login with wrong password</td><td>401 with generic message</td><td>Pass</td></tr>
+  <tr><td>TC04</td><td>Auth</td><td>Call a protected route without a token</td><td>401 "Not authorized, no token"</td><td>Pass</td></tr>
+  <tr><td>TC05</td><td>CRUD</td><td>Create / update / delete transaction, budget, goal, recurring plan, category</td><td>200 at each step; list reflects the change</td><td>Pass</td></tr>
+  <tr><td>TC06</td><td>Dashboard</td><td><code>GET /analytics/dashboard</code> after the accumulator fix</td><td>200 with totals, series, category breakdown, budget status</td><td>Pass</td></tr>
+  <tr><td>TC07</td><td>Reports</td><td><code>GET /analytics/reports</code> for a month with a previous month present</td><td>200 with month-over-month % and category change %</td><td>Pass</td></tr>
+  <tr><td>TC08</td><td>Validation</td><td>Amount = <code>abc</code> or <code>-5</code></td><td>Rejected with HTTP 400</td><td>Pass</td></tr>
+  <tr><td>TC09</td><td>Validation</td><td>Amount = <code>123.456</code></td><td>Stored as <code>123.46</code> (2 dp rounding)</td><td>Pass</td></tr>
+  <tr><td>TC10</td><td>Validation</td><td>Budget amount = <code>0</code></td><td>Rejected (min 0 for update, positive for create)</td><td>Pass</td></tr>
+  <tr><td>TC11</td><td>Isolation</td><td>Fetch records of user A using user B's token</td><td>Empty / not found — no cross-user data</td><td>Pass</td></tr>
+  <tr><td>TC12</td><td>Recurring</td><td>Load dashboard with a past-due recurring plan</td><td>Transaction auto-posted, next date advanced, notification created</td><td>Pass</td></tr>
+  <tr><td>TC13</td><td>Notifications</td><td>Refresh dashboard repeatedly with a budget ≥80%</td><td>Only one warning per month (de-duplicated)</td><td>Pass</td></tr>
+  <tr><td>TC14</td><td>Categories</td><td>Delete a category used by a recurring expense</td><td>Blocked with a clear message</td><td>Pass</td></tr>
+  <tr><td>TC15</td><td>CSV</td><td><code>GET /api/transactions/csv</code> with active filters</td><td>Valid CSV stream, correctly escaped quotes</td><td>Pass</td></tr>
+  <tr><td>TC16</td><td>Upload</td><td>Upload a non-image file / file &gt; 5 MB</td><td>Rejected by the Multer file filter</td><td>Pass</td></tr>
+  <tr><td>TC17</td><td>Frontend</td><td><code>npm run build</code> (production bundle)</td><td>Build success (948 modules)</td><td>Pass</td></tr>
+  <tr><td>TC18</td><td>Seeding</td><td><code>npm run seed</code> then log in with both demo accounts</td><td>Demo: 32 transactions / Saurabh: 20 transactions verified</td><td>Pass</td></tr>
+  <tr><td>TC19</td><td>Visual</td><td>Every page captured in light and dark mode</td><td>15 screenshots rendered correctly</td><td>Pass</td></tr>
+  <tr><td>TC20</td><td>Accessibility</td><td>Keyboard navigation: Tab through forms, Escape to close modals</td><td>Focus ring visible; modals close on Escape</td><td>Pass</td></tr>
+</table>
+
+<!-- ============================ 13. CHALLENGES ============================ -->
+<h2 class="pb">13. Challenges Faced &amp; Solutions</h2>
+<table>
+  <tr><th style="width:44%">Challenge</th><th>Solution adopted</th></tr>
+  <tr><td>MongoDB error <em>"The field must be an accumulator object"</em> inside <code>$group</code> when adding plain fields such as <code>name</code>.</td><td>Used accumulators such as <code>{ $first: '$name' }</code> for every non-<code>_id</code> field in three aggregation pipelines; verified with <code>GET /analytics/dashboard</code>.</td></tr>
+  <tr><td>Custom CSS class <code>.table-row</code> clashed with Tailwind's generated <code>display: table-row</code> utility and broke a flex row.</td><td>Renamed the component class to <code>.row-hover</code>; the built CSS now contains zero unintended <code>table-row</code> rules.</td></tr>
+  <tr><td>Amount fields accepted letters, negatives and unlimited decimals, corrupting totals.</td><td>Added <code>sanitizeAmountInput</code> on the client and <code>toAmount</code> on the server, then tested with API calls (TC08–TC10).</td></tr>
+  <tr><td>The same budget warning reappeared on every refresh, flooding the bell dropdown.</td><td>Stable notification keys with a pre-insert existence check (de-duplication) in <code>notify.js</code>.</td></tr>
+  <tr><td>Port conflicts (<code>EADDRINUSE</code>) when restarting the development servers.</td><td>Exactly one dev process per port, ports defined in <code>.env</code>, and the Vite proxy hides the backend port from the browser.</td></tr>
+  <tr><td>Environment variables were scattered across many files, making configuration hard to audit.</td><td>Restricted raw <code>process.env</code> / <code>import.meta.env</code> access to exactly two config files with defaults.</td></tr>
+  <tr><td>Deleting a category that was still referenced produced broken transactions.</td><td>Server-side check blocks the delete while a recurring expense uses the category; categories are referenced, not copied.</td></tr>
+  <tr><td>Receipt deletion could escape the uploads directory if the stored name was manipulated.</td><td>Always pass the file name through <code>path.basename()</code> before <code>fs.unlink</code>.</td></tr>
+</table>
+
+<!-- ============================ 14. LIMITATIONS ============================ -->
+<h2 class="pb">14. Limitations &amp; Future Scope</h2>
+<h3>14.1 Limitations of the Present System</h3>
+<ul>
+  <li>Recurring expenses are posted only when the app is opened — there is no background scheduler.</li>
+  <li>The production build shows a chunk-size warning (&gt;500 kB) because Recharts bundles all chart types in one chunk.</li>
+  <li>Only monthly budgets, a single currency per user and no live exchange-rate conversion.</li>
+  <li>No automated test suite yet; verification was done manually and with API calls (Chapter 12).</li>
+  <li>Receipt images are stored on local disk rather than in the database or cloud object storage.</li>
+  <li>No rate limiting on the authentication endpoints (planned with <code>express-rate-limit</code>).</li>
+  <li>The application is not yet deployed to a public server; it runs on localhost.</li>
+</ul>
+
+<h3>14.2 Future Scope</h3>
+<ol>
+  <li>Cron scheduler (<code>node-cron</code>) to post recurring expenses without opening the app.</li>
+  <li>Monthly report e-mails and budget-breach push / e-mail alerts.</li>
+  <li>Bank statement (CSV/OFX) import and receipt OCR for automatic entry.</li>
+  <li>Smart features: automatic category suggestion, anomaly detection and month-end forecasting.</li>
+  <li>Multi-currency support with daily exchange rates and shared / family budgets.</li>
+  <li>PWA with offline mode and a React Native mobile app using the same REST API.</li>
+  <li>Rate limiting, refresh-token rotation and an audit log of edits/deletes.</li>
+  <li>Jest + Supertest API tests, React Testing Library component tests and a CI/CD pipeline.</li>
+  <li>Route-level code splitting to remove the bundle-size warning.</li>
+  <li>Gamification (streaks, savings badges) and chart image export for presentations.</li>
+</ol>
+
+<!-- ============================ 15. CONCLUSION ============================ -->
+<h2 class="pb">15. Conclusion</h2>
+<p>ExpenseTracker delivers an end-to-end MERN application covering the complete personal-finance workflow — transactions, categories, budgets, savings goals, recurring payments, analytics, monthly reports and notifications — with secure per-user data, validation on both client and server, and a themeable, accessible interface built on a distinctive design system.</p>
+<p>The project demonstrated the practical application of the complete software-development lifecycle: requirement analysis, feasibility study, use-case and ER modelling, three-tier design, iterative implementation, systematic testing (20 test cases) and documentation. Technical problems encountered during development — MongoDB aggregation accumulator rules, CSS class collisions, amount validation and notification de-duplication — were diagnosed and resolved, and each resolution is recorded in Chapter 13.</p>
+<p>The modular structure (small single-purpose files, sequential <code>async/await</code> flow, centralised configuration and a single HTTP client) keeps the codebase easy to understand, maintain and extend. The working system, verified screenshots and test-case results confirm that the stated objectives of Chapter 2 have been achieved, while Chapter 14 provides a clear roadmap for growth beyond the current semester's requirements.</p>
+
+<!-- ============================ REFERENCES ============================ -->
+<h2>References</h2>
+<ol>
+  <li>React documentation — <em>React – A JavaScript library for building user interfaces</em>, https://react.dev</li>
+  <li>Redux Toolkit documentation — <em>Usage Guide</em>, https://redux-toolkit.js.org</li>
+  <li>Express.js documentation — https://expressjs.com/en/guide/routing.html</li>
+  <li>Mongoose documentation — <em>Queries, Aggregation and Indexes</em>, https://mongoosejs.com</li>
+  <li>MongoDB Manual — <em>Aggregation Pipeline</em>, https://www.mongodb.com/docs/manual/aggregation/</li>
+  <li>JSON Web Token (RFC 7519) — https://datatracker.ietf.org/doc/html/rfc7519</li>
+  <li>bcryptjs package documentation — https://www.npmjs.com/package/bcryptjs</li>
+  <li>Multer documentation — <em>Handling file uploads</em>, https://github.com/expressjs/multer</li>
+  <li>Tailwind CSS documentation — <em>Styling with CSS variables &amp; dark mode</em>, https://tailwindcss.com/docs</li>
+  <li>Recharts documentation — https://recharts.org/en-US</li>
+  <li>Vite documentation — https://vitejs.dev/guide</li>
+  <li>MDN Web Docs — <em>HTTP authentication, CORS and Content Security Policy</em>, https://developer.mozilla.org</li>
+  <li>OWASP Cheat Sheet Series — <em>Authentication Cheat Sheet</em>, https://cheatsheetseries.owasp.org</li>
+  <li>Gujarat Technological University — Mini Project guidelines, Semester VII (2025–26).</li>
+</ol>
+
+<!-- ============================ APPENDIX A ============================ -->
+<h2 class="pb">Appendix A — How to Run &amp; Demo Credentials</h2>
+<p><strong>Prerequisites:</strong> Node.js ≥ 18 and MongoDB running locally on port 27017.</p>
+<pre><code># 1. Backend
+cd server
+npm install
+cp .env.example .env
+npm run seed      # creates 2 demo users with realistic data
+npm run dev       # http://localhost:5000
+
+# 2. Frontend (new terminal)
+cd client
+npm install
+npm run dev       # http://localhost:5173</code></pre>
+<table>
+  <tr><th>Demo account</th><th>E-mail</th><th>Password</th><th>Seeded data</th></tr>
+  <tr><td>Demo User</td><td><code>demo@example.com</code></td><td><code>password123</code></td><td>32 transactions, 5 budgets, 5 recurring plans, 3 goals, 19 categories</td></tr>
+  <tr><td>Saurabh</td><td><code>saurabh@gmail.com</code></td><td><code>saurabh123</code></td><td>20 transactions, 3 budgets, 3 recurring plans, 3 goals, 19 categories</td></tr>
+</table>
+<p class="small">Production build: <code>cd client &amp;&amp; npm run build</code> (output in <code>client/dist</code>). Report PDF is generated from this HTML with the repository's Playwright helper.</p>
+
+<!-- ============================ APPENDIX B ============================ -->
+<h2>Appendix B — Environment Variables &amp; Seed Data</h2>
+<p><strong>server/.env</strong></p>
+<pre><code>PORT=5000
+MONGODB_URI=mongodb://localhost:27017/expenseTracker
+JWT_SECRET=&lt;your-secret&gt;
+JWT_EXPIRE=7d
+CLIENT_URL=http://localhost:5173
+UPLOAD_DIR=uploads</code></pre>
+<p><strong>client/.env</strong></p>
+<pre><code>VITE_API_BASE_URL=/api
+VITE_APP_NAME=ExpenseTracker
+VITE_APP_TAGLINE=Track every rupee
+VITE_REQUEST_TIMEOUT=15000</code></pre>
+
+<h3>Seed Data Summary</h3>
+<table>
+  <tr><th style="width:22%">Item</th><th>Contents</th></tr>
+  <tr><td>Users</td><td>2 (Demo User — monthly income ₹50,000; Saurabh — ₹75,000), both currency INR</td></tr>
+  <tr><td>Categories</td><td>19 per user — 13 expense (Food, Transport, Shopping, Rent, Bills, Entertainment, Health, Education, Travel, Subscriptions, Clothing, Mobile, Other) + 6 income (Salary, Freelance, Investment, Gift, Interest, Other Income)</td></tr>
+  <tr><td>Transactions</td><td>52 total across September &amp; October 2026 (Demo 32, Saurabh 20) so charts, reports and month-over-month comparisons all have content</td></tr>
+  <tr><td>Budgets</td><td>8 (Demo 5, Saurabh 3) for October 2026 — e.g. Food ₹8,000, Transport ₹4,000, Shopping ₹5,000</td></tr>
+  <tr><td>Savings goals</td><td>6 (3 each) — e.g. New Laptop ₹80,000/₹45,000, Goa Trip ₹30,000/₹18,000, Emergency Fund</td></tr>
+  <tr><td>Recurring plans</td><td>8 (Demo 5, Saurabh 3), all monthly and active; two are already past-due so auto-posting demonstrates itself on first login</td></tr>
+  <tr><td>Notifications</td><td>0 seeded — created at runtime by the budget / goal / recurring rules</td></tr>
+</table>
+
+<!-- ============================ APPENDIX C ============================ -->
+<h2>Appendix C — Code Metrics &amp; Module Index</h2>
+<table>
+  <tr><th style="width:46%">Metric</th><th>Value</th></tr>
+  <tr><td>REST endpoints</td><td>41 (40 in routers + health check); 38 authenticated</td></tr>
+  <tr><td>Route files / controllers / models / utils / middleware</td><td>8 / 8 / 7 / 6 / 3</td></tr>
+  <tr><td>Frontend pages / Redux slices / themes / shared components</td><td>11 / 8 / 8 / 11</td></tr>
+  <tr><td>Client routes</td><td>12 (2 public, 9 protected under <code>MainLayout</code>, 1 wildcard redirect)</td></tr>
+  <tr><td>Largest source files</td><td><code>Transactions.jsx</code> (~20 KB), <code>Reports.jsx</code> (~14 KB), <code>analyticsController.js</code> (336 lines)</td></tr>
+  <tr><td>Production build</td><td>948 modules bundled successfully (Vite 5)</td></tr>
+  <tr><td>Screenshots captured for this report</td><td>15 UI + 7 annotated code figures</td></tr>
+</table>
+
+<h3>Backend module index</h3>
+<table>
+  <tr><th style="width:34%">Path</th><th>Responsibility</th></tr>
+  <tr><td><code>server/src/config/env.js</code></td><td>The only file allowed to read <code>process.env</code>; supplies defaults for 7 variables.</td></tr>
+  <tr><td><code>server/src/config/db.js</code></td><td><code>mongoose.connect</code> with failure exit code 1.</td></tr>
+  <tr><td><code>server/src/middleware/auth.js</code></td><td><code>protect</code> — JWT verification and <code>req.user</code> hydration.</td></tr>
+  <tr><td><code>server/src/middleware/error.js</code></td><td>Central error handler (CastError / 11000 / ValidationError mapping).</td></tr>
+  <tr><td><code>server/src/middleware/upload.js</code></td><td>Multer disk storage, image MIME filter, 5 MB limit.</td></tr>
+  <tr><td><code>server/src/utils/processRecurring.js</code></td><td>Auto-posts due recurring expenses and advances <code>nextDate</code>.</td></tr>
+  <tr><td><code>server/src/utils/notify.js</code></td><td>Create-once notification helpers with stable keys.</td></tr>
+  <tr><td><code>server/src/utils/budgetStatus.js</code></td><td>Computes spent / percentage / remaining per budget.</td></tr>
+  <tr><td><code>server/src/utils/buildCsv.js</code></td><td>CSV serialiser with RFC-style quote escaping.</td></tr>
+  <tr><td><code>server/src/utils/sanitize.js</code></td><td><code>toAmount</code> — finite, positive, two-decimal rounding.</td></tr>
+  <tr><td><code>server/src/utils/defaultCategories.js</code></td><td>19 default categories used by the seeder.</td></tr>
+  <tr><td><code>server/src/seed/seed.js</code></td><td>Wipes the database and recreates both demo accounts with data.</td></tr>
+</table>
+
+<h3>Frontend module index</h3>
+<table>
+  <tr><th style="width:34%">Path</th><th>Responsibility</th></tr>
+  <tr><td><code>client/src/App.jsx</code></td><td>Route table, <code>ProtectedRoute</code>/<code>PublicRoute</code> guards, theme application and <code>getMe()</code> hydration.</td></tr>
+  <tr><td><code>client/src/services/api.js</code></td><td>The single Axios instance with token and 401 interceptors.</td></tr>
+  <tr><td><code>client/src/store/index.js</code></td><td><code>configureStore</code> combining eight slices.</td></tr>
+  <tr><td><code>client/src/themes/index.js</code></td><td>Theme registry: <code>themes</code>, <code>getTheme()</code>, <code>applyTheme()</code>.</td></tr>
+  <tr><td><code>client/src/index.css</code></td><td>CSS variables, Tailwind layers, component classes, keyframes, reduced-motion rule.</td></tr>
+  <tr><td><code>client/src/hooks/useDebounce.js</code></td><td>300 ms debounce used by the transaction search box.</td></tr>
+  <tr><td><code>client/src/utils/amount.js</code></td><td><code>sanitizeAmountInput</code>, <code>isValidAmount</code>, <code>amountErrorMessage</code>.</td></tr>
+  <tr><td><code>client/src/components/layout/*</code></td><td>Sidebar (9 nav links), Navbar (theme toggle, notifications, profile), MainLayout.</td></tr>
+</table>
+
+<p class="center small" style="margin-top:40px;border-top:2px solid var(--head);padding-top:12px;">
+— End of Report —<br />
+ExpenseTracker · Mini Project Report · Sharma Saurabh (250863131007) · GTU 2025–26
+</p>
+
+</body>
+</html>

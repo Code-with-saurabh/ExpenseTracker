@@ -25,7 +25,7 @@ const run = async () => {
     headerTemplate: '<div></div>',
     footerTemplate: `
       <div style="width:100%;font-size:9px;padding:0 40px;color:#7d766c;display:flex;justify-content:space-between;font-family:monospace;">
-        <span>ExpenseTracker — Final Project Report</span>
+        <span>ExpenseTracker — Mini Project Report</span>
         <span>Page <span class="pageNumber"></span> of <span class="totalPages"></span></span>
       </div>`,
     margin: { top: '18mm', bottom: '18mm', left: '12mm', right: '12mm' },
