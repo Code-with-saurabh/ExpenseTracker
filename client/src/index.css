@@ -1,0 +1,230 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --bg: #faf8f3;
+  --card: #ffffff;
+  --text: #29231f;
+  --muted: #29231f99;
+  --border: #29231f1f;
+  --primary: #493b32;
+  --primary-text: #ffffff;
+  --primary-hover: #3a2f27;
+  --accent: #78816a;
+  --sage: #e9ede4;
+  --beige: #e9dfd1;
+  --hover: #29231f0d;
+}
+
+.dark {
+  --bg: #1e1a16;
+  --card: #28221c;
+  --text: #efe9e1;
+  --muted: #efe9e18c;
+  --border: #efe9e11f;
+  --primary: #7a6656;
+  --primary-text: #ffffff;
+  --primary-hover: #8c7767;
+  --accent: #9ba586;
+  --sage: #333d2f;
+  --beige: #3a322a;
+  --hover: #efe9e10f;
+}
+
+@layer base {
+  html {
+    -webkit-font-smoothing: antialiased;
+  }
+
+  body {
+    font-family: 'JetBrains Mono', ui-monospace, monospace;
+    background-color: var(--bg);
+    color: var(--text);
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='140' height='140' filter='url(%23n)' opacity='0.035'/%3E%3C/svg%3E");
+  }
+
+  ::selection {
+    background: var(--sage);
+  }
+
+  input[type='number']::-webkit-outer-spin-button,
+  input[type='number']::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+
+  input[type='number'] {
+    -moz-appearance: textfield;
+    appearance: textfield;
+  }
+
+  input[type='date']::-webkit-calendar-picker-indicator {
+    opacity: 0.55;
+    cursor: pointer;
+  }
+
+  ::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: var(--border);
+    border: 3px solid var(--bg);
+    border-radius: 999px;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background: var(--muted);
+  }
+
+  button:focus-visible,
+  a:focus-visible,
+  [role='button']:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 2px;
+  }
+}
+
+@layer components {
+  .btn {
+    @apply inline-flex items-center justify-center gap-2 rounded-lg px-4 py-2 text-sm font-medium transition duration-200 focus:outline-none focus:border-primary disabled:cursor-not-allowed disabled:opacity-50;
+  }
+
+  .btn-primary {
+    @apply btn bg-primary text-onprimary transition duration-200 hover:-translate-y-0.5 hover:bg-primaryhover hover:shadow-soft;
+  }
+
+  .btn-outline {
+    @apply btn border border-line bg-surface text-ink hover:-translate-y-0.5 hover:bg-sage;
+  }
+
+  .btn-accent {
+    @apply btn bg-accent text-white hover:-translate-y-0.5 hover:shadow-soft;
+  }
+
+  .btn-danger {
+    @apply btn border border-line bg-surface text-red-600 hover:bg-red-50 dark:hover:bg-red-950;
+  }
+
+  .btn-sm {
+    @apply px-3 py-1.5 text-xs;
+  }
+
+  .input {
+    @apply w-full rounded-lg border border-line bg-surface px-3 py-2 text-sm text-ink transition duration-150 placeholder:text-muted focus:border-primary focus:shadow-[0_0_0_3px_var(--sage)] focus:outline-none;
+  }
+
+  .label {
+    @apply mb-1.5 block text-[11px] uppercase tracking-widest text-muted;
+  }
+
+  .card {
+    @apply rounded-xl border border-line bg-surface;
+  }
+
+  .card-hover {
+    @apply transition duration-200 hover:-translate-y-0.5 hover:shadow-soft;
+  }
+
+  .divider {
+    @apply border-t border-line;
+  }
+
+  .chip {
+    @apply inline-flex items-center gap-1 rounded-full bg-sage px-2 py-0.5 text-[11px] text-ink;
+  }
+
+  .table-th {
+    @apply border-b border-line px-4 py-3 text-left text-[11px] uppercase tracking-widest text-muted;
+  }
+
+  .table-td {
+    @apply border-b border-line px-4 py-3 text-sm;
+  }
+
+  .row-hover {
+    @apply transition duration-150 hover:bg-rowhover;
+  }
+
+  .row-hover:last-child .table-td {
+    @apply border-b-0;
+  }
+
+  .stat-value {
+    @apply text-2xl font-semibold tracking-tight;
+  }
+
+  .section-title {
+    @apply text-xs uppercase tracking-widest text-muted;
+  }
+
+  .skeleton {
+    @apply animate-pulse rounded-lg bg-sage;
+  }
+}
+
+@layer utilities {
+  .anim-page {
+    animation: fadeUp 220ms ease-out both;
+  }
+
+  .anim-fade {
+    animation: fadeUp 180ms ease-out both;
+  }
+
+  .anim-modal {
+    animation: popIn 200ms ease-out both;
+  }
+
+  .anim-flash {
+    animation: rowFlash 700ms ease-out;
+  }
+
+  .anim-slide {
+    animation: fadeUp 200ms ease-out both;
+  }
+}
+
+@keyframes fadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes popIn {
+  from {
+    opacity: 0;
+    transform: scale(0.97);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes rowFlash {
+  0% {
+    background-color: var(--sage);
+  }
+  100% {
+    background-color: transparent;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}

@@ -1,0 +1,835 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8" />
+<title>ExpenseTracker — Final Project Report</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,400;0,500;0,700;1,400&display=swap" rel="stylesheet" />
+<style>
+  * { box-sizing: border-box; }
+  body {
+    font-family: "JetBrains Mono", ui-monospace, Consolas, "Courier New", monospace;
+    color: #29231F;
+    background: #FFFFFF;
+    font-size: 13px;
+    line-height: 1.7;
+    margin: 0;
+    padding: 46px 56px 70px;
+    max-width: 1000px;
+  }
+  h1, h2, h3 { line-height: 1.35; color: #29231F; }
+  h1 { font-size: 25px; border-bottom: 4px solid #493B32; padding-bottom: 14px; margin-bottom: 18px; }
+  h2 { font-size: 18px; margin-top: 38px; padding-bottom: 7px; border-bottom: 2px solid #E9EDE4; color: #493B32; }
+  h3 { font-size: 15px; margin-top: 26px; color: #493B32; }
+  p { margin: 9px 0; }
+  table { border-collapse: collapse; width: 100%; margin: 14px 0; font-size: 12px; }
+  th, td { border: 1px solid #D8D2C7; padding: 7px 10px; text-align: left; vertical-align: top; }
+  th { background: #E9EDE4; color: #493B32; font-weight: 700; }
+  tr:nth-child(even) td { background: #FAF8F3; }
+  code { background: #F1EDE6; padding: 2px 6px; border-radius: 4px; font-size: 12px; }
+  pre { background: #26211C; color: #E6DED4; padding: 16px 18px; border-radius: 10px; overflow-x: auto; line-height: 1.6; }
+  pre code { background: none; color: inherit; padding: 0; font-size: 12px; }
+  img { max-width: 100%; border: 1px solid #D8D2C7; border-radius: 10px; margin: 8px 0 4px; display: block; }
+  em { color: #7d766c; }
+  strong { color: #493B32; }
+  hr { border: none; border-top: 2px solid #E9EDE4; margin: 30px 0; }
+  li { margin: 4px 0; }
+  blockquote { border-left: 4px solid #78816A; margin: 12px 0; padding: 4px 16px; background: #FAF8F3; }
+  h2, h3 { page-break-after: avoid; }
+  img, pre, table { page-break-inside: avoid; }
+  a { color: #493B32; }
+</style>
+</head>
+<body>
+<h1>ExpenseTracker — Final Project Report</h1>
+<p><strong>A Full-Stack MERN Personal Finance Tracker</strong></p>
+<p align="center">
+  <img src="logos/lit-wordmark.png" height="54" alt="Laxmi Institute of Technology" />
+  &nbsp;&nbsp;&nbsp;&nbsp;
+  <img src="logos/gtu-logo.png" height="86" alt="Gujarat Technological University" />
+</p>
+
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>Project Title</strong></td>
+<td>ExpenseTracker — Personal Expense &amp; Budget Management System</td>
+</tr>
+<tr>
+<td><strong>Submitted By</strong></td>
+<td>Sharma Saurabh</td>
+</tr>
+<tr>
+<td><strong>Roll Number</strong></td>
+<td>250863131007</td>
+</tr>
+<tr>
+<td><strong>Institute</strong></td>
+<td>Laxmi Institute of Technology (LIT), Sarigam — Laxmi Vidyapeeth</td>
+</tr>
+<tr>
+<td><strong>Department</strong></td>
+<td>Computer Engineering (CSE)</td>
+</tr>
+<tr>
+<td><strong>University</strong></td>
+<td>Gujarat Technological University (GTU)</td>
+</tr>
+<tr>
+<td><strong>Project Guide</strong></td>
+<td>X</td>
+</tr>
+<tr>
+<td><strong>Academic Year</strong></td>
+<td>2025–2026</td>
+</tr>
+<tr>
+<td><strong>Report Date</strong></td>
+<td>08 October 2026</td>
+</tr>
+</tbody></table>
+<hr>
+<h2>1. Introduction</h2>
+<p>ExpenseTracker is a complete personal finance management web application built on the <strong>MERN stack</strong> (MongoDB, Express.js, React.js, Node.js). It allows a user to record income and expenses, organise them into categories, set monthly budgets, track savings goals, automate recurring payments, and understand spending behaviour through interactive analytics and monthly reports.</p>
+<p>The project is a ground-up rebuild: the database design, backend API, frontend UI, and design system were all written fresh, while keeping every feature of the original reference implementation and adding a substantial set of new capabilities — including a <strong>light/dark mode</strong>, a <strong>multi-theme design engine (8 selectable themes)</strong>, <strong>CSV export</strong>, <strong>favorite transactions</strong>, <strong>receipt uploads</strong>, <strong>smart notifications</strong>, <strong>month-over-month reporting</strong>, and a much stronger <strong>validation and security layer</strong>.</p>
+<p>Design language: <strong>Option 8 — Warm White + Espresso + Sage</strong>, rendered entirely in the <strong>JetBrains Mono</strong> typeface for a clean, engineering-first, monospaced look.</p>
+<hr>
+<h2>2. Objectives</h2>
+<ol>
+<li>Build a full-stack CRUD application covering real personal-finance workflows (transactions → budgets → goals → reports).</li>
+<li>Implement every original feature (auth, transactions, categories, budgets, savings goals, recurring expenses, analytics) without regressions.</li>
+<li>Add modern product features: dark mode, selectable themes, CSV export, favorites, receipt attachments, smart notifications, richer reports.</li>
+<li>Apply a distinctive, consistent design system (Option 8 palette) with micro-interactions and polished empty/loading/error states.</li>
+<li>Keep the code <strong>simple and easy to explain</strong> in a viva: sequential <code>await</code> (no <code>Promise.all</code>), small single-purpose files, no Docker, no third-party APIs.</li>
+<li>Follow security best practices: JWT auth, bcrypt hashing, server-side validation, centralized environment configuration.</li>
+</ol>
+<hr>
+<h2>3. Tech Stack</h2>
+<table>
+<thead>
+<tr>
+<th>Layer</th>
+<th>Technology</th>
+<th>Why chosen</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Database</td>
+<td><strong>MongoDB</strong> (local, DB <code>expenseTracker</code>)</td>
+<td>Flexible schema for varied finance records</td>
+</tr>
+<tr>
+<td>Backend</td>
+<td><strong>Node.js + Express.js</strong></td>
+<td>Lightweight REST API, easy to explain</td>
+</tr>
+<tr>
+<td>ODM</td>
+<td><strong>Mongoose 8</strong></td>
+<td>Schema validation, populated references</td>
+</tr>
+<tr>
+<td>Frontend</td>
+<td><strong>React 18 (Vite)</strong></td>
+<td>Fast dev server, component model</td>
+</tr>
+<tr>
+<td>State</td>
+<td><strong>Redux Toolkit</strong></td>
+<td>Predictable, minimal boilerplate slices</td>
+</tr>
+<tr>
+<td>Routing</td>
+<td><strong>React Router v6</strong></td>
+<td>Declarative protected routes</td>
+</tr>
+<tr>
+<td>Charts</td>
+<td><strong>Recharts</strong></td>
+<td>React-friendly bar/line/pie charts</td>
+</tr>
+<tr>
+<td>Styling</td>
+<td><strong>Tailwind CSS</strong> (<code>darkMode: class</code>) + custom component classes</td>
+<td>Rapid, consistent styling</td>
+</tr>
+<tr>
+<td>Typography</td>
+<td><strong>JetBrains Mono</strong> (full UI)</td>
+<td>Distinctive monospace identity</td>
+</tr>
+<tr>
+<td>HTTP</td>
+<td><strong>Axios</strong> (centralized <code>services/api.js</code>)</td>
+<td>Single interceptor for auth + errors</td>
+</tr>
+<tr>
+<td>Toasts</td>
+<td><strong>react-hot-toast</strong></td>
+<td>Lightweight feedback</td>
+</tr>
+<tr>
+<td>Uploads</td>
+<td><strong>Multer</strong> (2 MB receipt images)</td>
+<td>Server-side receipt storage</td>
+</tr>
+<tr>
+<td>Auth</td>
+<td><strong>JWT + bcryptjs</strong></td>
+<td>Stateless auth, hashed passwords</td>
+</tr>
+<tr>
+<td>Security</td>
+<td><strong>helmet</strong>, CORS allow-list</td>
+<td>Hardened defaults</td>
+</tr>
+</tbody></table>
+<p><strong>Ports:</strong> Backend <code>5000</code>, Frontend <code>5173</code> (Vite proxies <code>/api</code> and <code>/uploads</code> → backend, so no CORS pain in dev).</p>
+<hr>
+<h2>4. Design System</h2>
+<h3>4.1 Option 8 — Warm White + Espresso + Sage</h3>
+<table>
+<thead>
+<tr>
+<th>Token</th>
+<th>Hex</th>
+<th>Usage</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Background</td>
+<td><code>#FAF8F3</code></td>
+<td>Page background</td>
+</tr>
+<tr>
+<td>Text</td>
+<td><code>#29231F</code></td>
+<td>Primary text</td>
+</tr>
+<tr>
+<td>Primary (Espresso)</td>
+<td><code>#493B32</code></td>
+<td>Buttons, active states, sidebar brand</td>
+</tr>
+<tr>
+<td>Accent (Sage)</td>
+<td><code>#78816A</code></td>
+<td>Charts, links, highlights</td>
+</tr>
+<tr>
+<td>Sage tint</td>
+<td><code>#E9EDE4</code></td>
+<td>Sidebar, soft panels</td>
+</tr>
+<tr>
+<td>Beige tint</td>
+<td><code>#E9DFD1</code></td>
+<td>Stat cards, hero balance card</td>
+</tr>
+<tr>
+<td>Card</td>
+<td><code>#FFFFFF</code></td>
+<td>Surfaces</td>
+</tr>
+</tbody></table>
+<p>All colors are exposed as <strong>CSS variables</strong> (<code>--bg</code>, <code>--text</code>, <code>--card</code>, <code>--border</code>, <code>--primary</code>, <code>--accent</code>, <code>--sage</code>, <code>--beige</code>, …) defined for both <code>:root</code> and <code>.dark</code>, so switching theme or dark mode is a pure CSS-variable swap — no component needs to know about colors.</p>
+<h3>4.2 Theme Engine (New Feature)</h3>
+<ul>
+<li><strong>8 independent theme files</strong> in <code>client/src/themes/</code> (<code>option1…option8</code>), one file per theme, plus a small registry (<code>themes/index.js</code>) exposing <code>getTheme()</code> / <code>applyTheme()</code>.</li>
+<li>User picks a theme on the <strong>Profile → Appearance</strong> section; selection persists in <code>localStorage</code> (<code>theme</code>, <code>themeId</code>).</li>
+<li><code>dark</code> toggle is independent and also persisted; navbar moon icon toggles it from any page.</li>
+<li>Screenshot <code>14-theme-burgundy.png</code> proves one click swaps the whole identity of the app.</li>
+</ul>
+<h3>4.3 Interaction &amp; Motion</h3>
+<ul>
+<li>All transitions <strong>150–250 ms, pure CSS</strong> (no JS animation libraries): button hover, card hover-lift, modal fade+scale, progress-bar fills, skeleton shimmer, toast slides, flash-highlight on newly added rows.</li>
+<li>Accessibility: visible <code>:focus-visible</code> outlines, keyboard-dismissable modals (Escape), labelled inputs.</li>
+<li>Number inputs: <code>inputMode=&quot;decimal&quot;</code>, sanitized (digits + one dot + max 2 decimals), browser spinners hidden.</li>
+</ul>
+<hr>
+<h2>5. Architecture &amp; Project Structure</h2>
+<pre><code>ExpenseTracker/
+├── server/                   # Express API
+│   ├── src/
+│   │   ├── config/env.js             # ONLY file that reads process.env
+│   │   ├── models/                   # 7 Mongoose models
+│   │   ├── middleware/               # auth (JWT), error, upload (multer)
+│   │   ├── utils/                    # notify, processRecurring, buildCsv, sanitize…
+│   │   ├── controllers/              # 8 controllers
+│   │   ├── routes/                   # 8 routers (40 endpoints)
+│   │   ├── seed/seed.js              # 2 demo users + data
+│   │   ├── app.js  server.js
+│   └── .env / .env.example
+└── client/                   # React (Vite) SPA
+    ├── src/
+    │   ├── config/env.js             # ONLY file that reads import.meta.env
+    │   ├── themes/                   # 8 theme files + registry
+    │   ├── features/                 # 8 Redux slices + store
+    │   ├── services/api.js           # axios instance + interceptors
+    │   ├── layout/                   # Sidebar, Navbar, MainLayout
+    │   ├── common/                   # Modal, EmptyState, Skeletons, charts
+    │   ├── pages/                    # 11 pages
+    │   ├── hooks/ utils/
+    │   └── index.css                 # variables + component classes
+    └── vite.config.js (proxy)
+</code></pre>
+<p><strong>Data flow:</strong> Page → Redux slice → <code>services/api.js</code> (axios + JWT header) → Express route → controller → Mongoose model → MongoDB → JSON back → slice state → Recharts/UI.</p>
+<hr>
+<h2>6. Features</h2>
+<h3>6.1 Core (Original) Features — all retained</h3>
+<table>
+<thead>
+<tr>
+<th>#</th>
+<th>Feature</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>1</td>
+<td>Register / Login</td>
+<td>JWT, bcrypt, profile update</td>
+</tr>
+<tr>
+<td>2</td>
+<td>Dashboard</td>
+<td>Balance, month income/expense, donut, budget bars, recent tx</td>
+</tr>
+<tr>
+<td>3</td>
+<td>Transactions CRUD</td>
+<td>Income + expense, filters, search, pagination</td>
+</tr>
+<tr>
+<td>4</td>
+<td>Categories CRUD</td>
+<td>Custom categories with icons/emoji, income+expense types</td>
+</tr>
+<tr>
+<td>5</td>
+<td>Monthly Budgets</td>
+<td>Per-category limits, progress bars, over-budget status</td>
+</tr>
+<tr>
+<td>6</td>
+<td>Savings Goals</td>
+<td>Target vs current, contributions, progress</td>
+</tr>
+<tr>
+<td>7</td>
+<td>Recurring Expenses</td>
+<td>Monthly frequency, active toggle, auto-posting when due</td>
+</tr>
+<tr>
+<td>8</td>
+<td>Analytics</td>
+<td>Bar/line/pie charts: monthly trend, category, payment method</td>
+</tr>
+</tbody></table>
+<h3>6.2 New &amp; Enhanced Features (added in this rebuild)</h3>
+<table>
+<thead>
+<tr>
+<th>#</th>
+<th>Feature</th>
+<th>What it does</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>1</td>
+<td><strong>Light / Dark mode</strong></td>
+<td>Class-based, persisted, one-click toggle</td>
+</tr>
+<tr>
+<td>2</td>
+<td><strong>8 selectable themes</strong></td>
+<td>Profile → Appearance; one file per theme</td>
+</tr>
+<tr>
+<td>3</td>
+<td><strong>Monthly Reports page</strong></td>
+<td>Month navigator, MoM comparison, insight banner (&quot;spent 48% less than last month&quot;), category table with change %, payment-method breakdown</td>
+</tr>
+<tr>
+<td>4</td>
+<td><strong>CSV export</strong></td>
+<td><code>GET /api/transactions/csv</code> streams a downloadable CSV of filtered data</td>
+</tr>
+<tr>
+<td>5</td>
+<td><strong>Favorites</strong></td>
+<td>Star frequent transactions; dedicated favorites list</td>
+</tr>
+<tr>
+<td>6</td>
+<td><strong>Receipt upload</strong></td>
+<td>Attach ≤2 MB image per transaction; lightbox preview</td>
+</tr>
+<tr>
+<td>7</td>
+<td><strong>Smart notifications</strong></td>
+<td>Budget-near/over, goal milestones, recurring-due, welcome — with de-duplication (<code>key</code> field)</td>
+</tr>
+<tr>
+<td>8</td>
+<td><strong>Recurring auto-post</strong></td>
+<td>On login/app load, due recurring items are posted as real transactions</td>
+</tr>
+<tr>
+<td>9</td>
+<td><strong>Multi-chart analytics</strong></td>
+<td>Vertical selector: Bar / Line / Pie / Area / Donut for each analysis</td>
+</tr>
+<tr>
+<td>10</td>
+<td><strong>Tags</strong></td>
+<td>Free-form tags (<code>home, work</code>) on transactions + filter</td>
+</tr>
+<tr>
+<td>11</td>
+<td><strong>Advanced filters</strong></td>
+<td>Date range, category, type, payment method, amount range, favorites-only</td>
+</tr>
+<tr>
+<td>12</td>
+<td><strong>Empty &amp; loading states</strong></td>
+<td>Dedicated EmptyState art + skeleton loaders on every page</td>
+</tr>
+<tr>
+<td>13</td>
+<td><strong>Amount sanitization</strong></td>
+<td>Client + server validation (rejects <code>abc</code>, <code>-5</code>, &gt;2 decimals)</td>
+</tr>
+<tr>
+<td>14</td>
+<td><strong>Centralized env</strong></td>
+<td>One config file per side for all environment variables</td>
+</tr>
+<tr>
+<td>15</td>
+<td><strong>Security pass</strong></td>
+<td>helmet, CORS allow-list, generic auth errors, ownership checks on every query</td>
+</tr>
+<tr>
+<td>16</td>
+<td><strong>Micro-interactions</strong></td>
+<td>Row flash on create, hover lifts, modal animation, focus rings</td>
+</tr>
+</tbody></table>
+<h3>6.3 Original vs Rebuild</h3>
+<table>
+<thead>
+<tr>
+<th>Area</th>
+<th>Original</th>
+<th>Rebuild</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>State</td>
+<td>local/<code>useState</code> patterns</td>
+<td>Redux Toolkit slices</td>
+</tr>
+<tr>
+<td>Themes</td>
+<td>fixed palette</td>
+<td>8 themes + dark mode</td>
+</tr>
+<tr>
+<td>Reports</td>
+<td>basic totals</td>
+<td>MoM insight + category change %</td>
+</tr>
+<tr>
+<td>Export</td>
+<td>none</td>
+<td>CSV</td>
+</tr>
+<tr>
+<td>Validation</td>
+<td>client mostly</td>
+<td>client <strong>and</strong> server (<code>toAmount</code>)</td>
+</tr>
+<tr>
+<td>Notifications</td>
+<td>basic</td>
+<td>de-duplicated smart alerts</td>
+</tr>
+<tr>
+<td>Config</td>
+<td>scattered <code>process.env</code></td>
+<td>2 centralized config files</td>
+</tr>
+<tr>
+<td>Design</td>
+<td>generic</td>
+<td>Option 8 + JetBrains Mono</td>
+</tr>
+</tbody></table>
+<hr>
+<h2>7. Database Design (MongoDB Collections)</h2>
+<table>
+<thead>
+<tr>
+<th>Model</th>
+<th>Key fields</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>User</strong></td>
+<td>name, email (unique), password (bcrypt), currency, monthlyIncome, theme prefs</td>
+</tr>
+<tr>
+<td><strong>Category</strong></td>
+<td>user, name, type (income/expense), icon, color</td>
+</tr>
+<tr>
+<td><strong>Transaction</strong></td>
+<td>user, type, amount, category→Category, description, date, paymentMethod, <strong>tags[]</strong>, <strong>receipt</strong>, <strong>favorite</strong>, notes</td>
+</tr>
+<tr>
+<td><strong>Budget</strong></td>
+<td>user, category→Category, amount, month, year</td>
+</tr>
+<tr>
+<td><strong>SavingsGoal</strong></td>
+<td>user, title, targetAmount, currentAmount, targetDate, icon</td>
+</tr>
+<tr>
+<td><strong>RecurringExpense</strong></td>
+<td>user, title, amount, category, frequency, nextDate, paymentMethod, active</td>
+</tr>
+<tr>
+<td><strong>Notification</strong></td>
+<td>user, type, title, message, <strong>key</strong> (de-dup), read</td>
+</tr>
+</tbody></table>
+<p>All finance models are indexed by <code>user</code> + <code>date</code>/<code>month-year</code> for fast aggregation. Every query filters by <code>user: req.user._id</code> — users can never see each other&#39;s data.</p>
+<hr>
+<h2>8. API Reference (40 endpoints)</h2>
+<table>
+<thead>
+<tr>
+<th>Router</th>
+<th>Endpoints</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>/api/auth</code></td>
+<td><code>POST /register</code>, <code>POST /login</code>, <code>GET /me</code>, <code>PUT /profile</code></td>
+</tr>
+<tr>
+<td><code>/api/transactions</code></td>
+<td><code>GET /</code>, <code>POST /</code>, <code>GET /:id</code>, <code>PUT /:id</code>, <code>DELETE /:id</code>, <code>GET /csv</code>, <code>GET /favorites</code>, <code>PATCH /:id/favorite</code>, <code>PATCH /:id/receipt</code></td>
+</tr>
+<tr>
+<td><code>/api/categories</code></td>
+<td><code>GET /</code>, <code>POST /</code>, <code>PUT /:id</code>, <code>DELETE /:id</code> (blocked if used by recurring)</td>
+</tr>
+<tr>
+<td><code>/api/budgets</code></td>
+<td><code>GET /</code>, <code>POST /</code>, <code>PUT /:id</code>, <code>DELETE /:id</code></td>
+</tr>
+<tr>
+<td><code>/api/goals</code></td>
+<td><code>GET /</code>, <code>POST /</code>, <code>PUT /:id</code>, <code>DELETE /:id</code>, <code>POST /:id/add-money</code></td>
+</tr>
+<tr>
+<td><code>/api/recurring-expenses</code></td>
+<td><code>GET /</code>, <code>POST /</code>, <code>PUT /:id</code>, <code>DELETE /:id</code>, <code>PATCH /:id/toggle</code></td>
+</tr>
+<tr>
+<td><code>/api/analytics</code></td>
+<td><code>GET /dashboard</code>, <code>GET /monthly</code>, <code>GET /categories</code>, <code>GET /payment-methods</code>, <code>GET /reports</code></td>
+</tr>
+<tr>
+<td><code>/api/notifications</code></td>
+<td><code>GET /</code>, <code>PATCH /read-all</code>, <code>PATCH /:id/read</code>, <code>DELETE /:id</code></td>
+</tr>
+</tbody></table>
+<hr>
+<h2>9. Key Screenshots</h2>
+<h3>9.1 Login</h3>
+<p><img src="screenshots/01-login.png" alt="Login"></p>
+<p><em>Split-screen login with Unsplash imagery (with offline fallback) and monospace form.</em></p>
+<h3>9.2 Dashboard</h3>
+<p><img src="screenshots/02-dashboard.png" alt="Dashboard"></p>
+<p><em>Balance hero card, income/expense stats, month-at-a-glance bar chart, category donut, budget progress bars, recent transactions.</em></p>
+<h3>9.3 Transactions + Add Modal</h3>
+<p><img src="screenshots/03-transactions.png" alt="Transactions"></p>
+<p><img src="screenshots/04-add-transaction-modal.png" alt="Add transaction modal"></p>
+<p><em>Filters (search, type, category, date range, tags), CSV export, favorites; sanitized amount input in the modal.</em></p>
+<h3>9.4 Budgets</h3>
+<p><img src="screenshots/05-budgets.png" alt="Budgets"></p>
+<p><em>Per-category monthly limits with progress bars and over-budget highlighting.</em></p>
+<h3>9.5 Analytics (chart switching)</h3>
+<p><img src="screenshots/06-analytics-bar.png" alt="Analytics bar"></p>
+<p><img src="screenshots/07-analytics-line.png" alt="Analytics line"></p>
+<p><em>Vertical chart-type selector switches Bar → Line (Pie/Area/Donut also available) without leaving the page.</em></p>
+<h3>9.6 Monthly Report</h3>
+<p><img src="screenshots/08-reports.png" alt="Reports"></p>
+<p><em>Month navigator, MoM insight banner, 6-month income-vs-expense chart, category table with change %, top categories, payment-method split, CSV export.</em></p>
+<h3>9.7 Goals / Recurring / Categories</h3>
+<p><img src="screenshots/09-goals.png" alt="Goals"></p>
+<p><img src="screenshots/10-recurring.png" alt="Recurring"></p>
+<p><img src="screenshots/11-categories.png" alt="Categories"></p>
+<h3>9.8 Theme Selector &amp; Dark Mode</h3>
+<p><img src="screenshots/12-theme-selector.png" alt="Theme selector"></p>
+<p><em>Profile → Appearance: 8 theme cards; current theme highlighted.</em></p>
+<p><img src="screenshots/13-dashboard-dark.png" alt="Dark mode"></p>
+<p><em>Dark mode dashboard — same data, inverted palette.</em></p>
+<p><img src="screenshots/14-theme-burgundy.png" alt="Burgundy theme"></p>
+<p><em>Same dashboard after one click on &quot;Cream + Burgundy&quot; — full re-skin via CSS variables.</em></p>
+<h3>9.9 Empty State</h3>
+<p><img src="screenshots/15-empty-state.png" alt="Empty state"></p>
+<p><em>Fresh account — friendly empty state instead of a blank table.</em></p>
+<hr>
+<h2>10. Code Highlights</h2>
+<h3>10.1 Dashboard aggregation (sequential, easy to explain)</h3>
+<p><img src="screenshots/code-01-dashboard-aggregation.png" alt="Dashboard aggregation"></p>
+<p><em>Note the fixed MongoDB pitfall: non-<code>_id</code> fields inside <code>$group</code> must use accumulators (<code>{ $first: &#39;$field&#39; }</code>), not bare paths — this exact bug was found and fixed during testing.</em></p>
+<h3>10.2 Recurring auto-posting</h3>
+<p><img src="screenshots/code-02-recurring-auto-post.png" alt="Recurring auto-post"></p>
+<p><em>Due recurring items become real transactions automatically.</em></p>
+<h3>10.3 Smart notifications</h3>
+<p><img src="screenshots/code-03-smart-notifications.png" alt="Notifications"></p>
+<p><em>De-duplication via a stable <code>key</code> so the same budget warning never spams the bell.</em></p>
+<h3>10.4 One theme = one file</h3>
+<p><img src="screenshots/code-04-theme-file.png" alt="Theme file"></p>
+<p><em>Adding a 9th theme means adding one file + one registry entry — nothing else changes.</em></p>
+<h3>10.5 Chart selector</h3>
+<p><img src="screenshots/code-05-chart-selector.png" alt="Chart selector"></p>
+<p><em>Data stays mounted; only the chart component swaps — animation stays smooth.</em></p>
+<h3>10.6 Amount sanitization</h3>
+<p><img src="screenshots/code-06-amount-sanitization.png" alt="Amount sanitization"></p>
+<p><em>Client blocks bad keystrokes; server independently rejects <code>abc</code>, <code>-5</code>, <code>12.345</code> (→ 400).</em></p>
+<h3>10.7 CSV export</h3>
+<p><img src="screenshots/code-07-csv-export.png" alt="CSV export"></p>
+<p><em>Streams a proper <code>text/csv</code> download with date-stamped filename.</em></p>
+<hr>
+<h2>11. Security &amp; Validation</h2>
+<ol>
+<li><strong>Passwords</strong> hashed with bcrypt (10 rounds); never returned in APIs.</li>
+<li><strong>JWT</strong> (expiry configured) in <code>Authorization: Bearer</code> header; axios interceptor attaches/ clears it.</li>
+<li><strong>Ownership checks</strong> — every find/update/delete includes <code>user: req.user._id</code>.</li>
+<li><strong>Server-side validation</strong> with a <code>sanitize.js</code> helper — invalid amounts, empty titles, bad enums → 400 with clear messages.</li>
+<li><strong>helmet</strong> security headers + CORS allow-list.</li>
+<li><strong>Multer</strong> limits: 2 MB, image mime-types only.</li>
+<li><strong>Env centralization</strong> — only <code>server/src/config/env.js</code> and <code>client/src/config/env.js</code> read raw env vars; secrets live in <code>.env</code> (git-ignored, <code>.env.example</code> provided).</li>
+<li><strong>No third-party APIs</strong> — everything runs locally; auth pages use static Unsplash images with graceful fallback.</li>
+</ol>
+<hr>
+<h2>12. How to Run</h2>
+<p>Prerequisites: <strong>Node.js ≥ 18</strong>, <strong>MongoDB</strong> running locally (default port 27017).</p>
+<pre><code class="language-bash"># 1. Backend
+cd server
+npm install
+cp .env.example .env        # or create .env manually
+npm run seed                # creates demo + saurabh users with data
+npm run dev                 # http://localhost:5000
+
+# 2. Frontend (new terminal)
+cd client
+npm install
+npm run dev                 # http://localhost:5173
+</code></pre>
+<p><strong>Login accounts (seeded):</strong></p>
+<table>
+<thead>
+<tr>
+<th>Email</th>
+<th>Password</th>
+<th>Data</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>demo@example.com</code></td>
+<td><code>password123</code></td>
+<td>31 transactions, 5 budgets, 5 recurring, 3 goals</td>
+</tr>
+<tr>
+<td><code>saurabh@gmail.com</code></td>
+<td><code>saurabh123</code></td>
+<td>18 transactions, 3 budgets, 3 recurring, 3 goals</td>
+</tr>
+</tbody></table>
+<hr>
+<h2>13. Testing &amp; Verification</h2>
+<table>
+<thead>
+<tr>
+<th>Area</th>
+<th>Test</th>
+<th>Result</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Auth</td>
+<td>register / login / getMe</td>
+<td>✅ 200</td>
+</tr>
+<tr>
+<td>Dashboard</td>
+<td>summary aggregation</td>
+<td>✅ 200 (after <code>$group</code> fix)</td>
+</tr>
+<tr>
+<td>Reports</td>
+<td>MoM + categories + payment methods</td>
+<td>✅ 200</td>
+</tr>
+<tr>
+<td>CRUD</td>
+<td>transactions, budgets, goals, recurring, categories</td>
+<td>✅ 200</td>
+</tr>
+<tr>
+<td>CSV</td>
+<td><code>GET /transactions/csv</code></td>
+<td>✅ valid CSV stream</td>
+</tr>
+<tr>
+<td>Validation</td>
+<td>amount <code>abc</code>, <code>-5</code></td>
+<td>✅ 400 rejected</td>
+</tr>
+<tr>
+<td>Validation</td>
+<td>amount <code>123.456</code></td>
+<td>✅ stored <code>123.46</code></td>
+</tr>
+<tr>
+<td>Validation</td>
+<td>budget <code>0</code></td>
+<td>✅ 400 rejected</td>
+</tr>
+<tr>
+<td>Category delete</td>
+<td>delete category used by recurring</td>
+<td>✅ blocked</td>
+</tr>
+<tr>
+<td>Frontend</td>
+<td><code>npm run build</code></td>
+<td>✅ success (948 modules)</td>
+</tr>
+<tr>
+<td>Seeding</td>
+<td>both demo users created</td>
+<td>✅ verified</td>
+</tr>
+</tbody></table>
+<p><strong>Known cosmetic note:</strong> client build prints a chunk-size warning (&gt;500 kB) because Recharts bundles all chart types — a warning only, not an error; handled by lazy-loading charts in future scope.</p>
+<hr>
+<h2>14. Challenges Faced &amp; Solutions</h2>
+<table>
+<thead>
+<tr>
+<th>Challenge</th>
+<th>Solution</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>MongoDB error: <code>The field &#39;name&#39; must be an accumulator object</code></td>
+<td>Non-<code>_id</code> fields in <code>$group</code> need accumulators; replaced bare paths with <code>{ $first: &#39;$name&#39; }</code> in 3 pipelines</td>
+</tr>
+<tr>
+<td>Tailwind <code>.table-row { display: table-row }</code> clashed with the custom <code>.table-row</code> component class (broke a flex row)</td>
+<td>Renamed component class to <code>.row-hover</code>; zero <code>table-row</code> in built CSS now</td>
+</tr>
+<tr>
+<td>Amount fields accepted <code>abc</code> / negative / &gt;2 decimals</td>
+<td>Added <code>sanitizeAmountInput</code> (client) + <code>toAmount</code> (server), both unit-tested with curl</td>
+</tr>
+<tr>
+<td>Port conflicts (<code>EADDRINUSE</code>) during restarts</td>
+<td>Single dev process per port; ports centralized in <code>.env</code></td>
+</tr>
+<tr>
+<td>Scattered <code>process.env</code> / <code>import.meta.env</code></td>
+<td>Restricted all raw env access to exactly two config files</td>
+</tr>
+</tbody></table>
+<hr>
+<h2>15. Future Scope</h2>
+<p><strong>Automation &amp; Scheduling</strong></p>
+<ol>
+<li><strong>Cron scheduler</strong> (node-cron) — post recurring expenses even when the user never opens the app (currently posts on app load).</li>
+<li><strong>Scheduled report emails</strong> — monthly PDF report mailed on the 1st.</li>
+<li><strong>Budget breach push alerts</strong> — browser Web Push / email when spending crosses 80% / 100%.</li>
+</ol>
+<p><strong>Intelligence</strong>
+4. <strong>AI category suggestions</strong> — auto-tag transactions from description (&quot;Swiggy&quot; → Food).
+5. <strong>Anomaly detection</strong> — flag unusually large or unusual-category spending.
+6. <strong>Forecasting</strong> — predict month-end balance from current run-rate.
+7. <strong>Natural-language add</strong> — &quot;coffee 120 yesterday&quot; → parsed transaction.</p>
+<p><strong>Data Ingestion</strong>
+8. <strong>Bank statement import</strong> — CSV/OFX upload with column mapping.
+9. <strong>Receipt OCR</strong> — extract merchant/amount/date from uploaded receipts.
+10. <strong>UPI/bank API integration</strong> (via account aggregator consent) for auto-sync.</p>
+<p><strong>Product</strong>
+11. <strong>Multi-currency</strong> with daily exchange rates + trip-wise grouping.
+12. <strong>Shared/family budgets</strong> — household accounts with roles.
+13. <strong>PWA + offline mode</strong> — installable app, queue entries offline, sync later.
+14. <strong>React Native mobile app</strong> — reuse the REST API as-is.
+15. <strong>Gamification</strong> — streaks, savings badges, monthly challenges.
+16. <strong>Custom dashboards</strong> — drag-and-drop widgets, user-chosen metrics.
+17. <strong>Charts → image/PDF export</strong> for presentations.
+18. <strong>i18n</strong> — Hindi/regional language UI.</p>
+<p><strong>Engineering</strong>
+19. <strong>Refresh-token rotation</strong> + logout-all devices.
+20. <strong>Rate limiting &amp; brute-force lockout</strong> (express-rate-limit).
+21. <strong>Automated tests</strong> — Jest + Supertest API suite, React Testing Library for components.
+22. <strong>CI/CD</strong> — GitHub Actions lint/test/build; Dockerfile for one-command deploys.
+23. <strong>Code splitting</strong> per route to silence the Recharts bundle warning.
+24. <strong>Structured logging &amp; monitoring</strong> (pino + error tracker).
+25. <strong>Audit log</strong> — history of edits/deletes for every transaction.</p>
+<hr>
+<h2>16. Conclusion</h2>
+<p>ExpenseTracker demonstrates an end-to-end MERN application with a polished, distinctive UI (Option 8 palette + JetBrains Mono), a full personal-finance feature set, and a set of enhancements — themes, dark mode, CSV export, receipts, smart notifications, richer reports — that take it beyond basic CRUD. The codebase is intentionally structured in small, single-purpose files with sequential, readable control flow, making it straightforward to demonstrate and defend in a project viva. Validation runs on both client and server, data is strictly per-user, and the whole system runs locally with two commands and no external services.</p>
+<hr>
+<h2>Appendix A — Environment Variables</h2>
+<p><strong>server/.env</strong></p>
+<pre><code>PORT=5000
+MONGODB_URI=mongodb://127.0.0.1:27017/expenseTracker
+JWT_SECRET=&lt;your-secret&gt;
+JWT_EXPIRES_IN=7d
+CLIENT_URL=http://localhost:5173
+</code></pre>
+<p><strong>client/.env</strong></p>
+<pre><code>VITE_API_BASE_URL=/api
+VITE_APP_NAME=ExpenseTracker
+VITE_APP_TAGLINE=Track every rupee
+VITE_REQUEST_TIMEOUT=15000
+</code></pre>
+<h2>Appendix B — Seed Data</h2>
+<table>
+<thead>
+<tr>
+<th>User</th>
+<th>Email</th>
+<th>Password</th>
+<th>Contents</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Demo User</td>
+<td><code>demo@example.com</code></td>
+<td><code>password123</code></td>
+<td>31 transactions (Sep + Oct 2026), 5 budgets, 5 recurring, 3 goals</td>
+</tr>
+<tr>
+<td>Saurabh</td>
+<td><code>saurabh@gmail.com</code></td>
+<td><code>saurabh123</code></td>
+<td>18 transactions (Sep + Oct 2026), 3 budgets, 3 recurring, 3 goals</td>
+</tr>
+</tbody></table>
+
+</body>
+</html>

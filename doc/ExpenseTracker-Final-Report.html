@@ -1,0 +1,317 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>ExpenseTracker — Final Project Report</title>
+<style>
+  :root { --text:#222; --muted:#666; --line:#d9d9d9; --head:#493B32; --tint:#f4f1ec; }
+  * { box-sizing: border-box; }
+  body { font-family: Georgia, "Times New Roman", serif; color: var(--text); font-size: 15px; line-height: 1.7; max-width: 880px; margin: 0 auto; padding: 40px 32px 80px; }
+  h1,h2,h3 { font-family: Arial, Helvetica, sans-serif; color: var(--head); line-height: 1.3; }
+  h2 { font-size: 21px; margin-top: 44px; padding-bottom: 6px; border-bottom: 2px solid var(--line); }
+  h3 { font-size: 16px; margin-top: 26px; }
+  p { margin: 10px 0; text-align: justify; }
+  table { border-collapse: collapse; width: 100%; margin: 14px 0; font-size: 13.5px; font-family: Arial, Helvetica, sans-serif; }
+  th, td { border: 1px solid var(--line); padding: 7px 10px; text-align: left; vertical-align: top; }
+  th { background: var(--tint); color: var(--head); }
+  code { background: var(--tint); padding: 1px 5px; border-radius: 3px; font-size: 13px; }
+  pre { background: #1f1b18; color: #eee; padding: 14px 16px; border-radius: 6px; overflow-x: auto; font-size: 12.5px; line-height: 1.55; }
+  pre code { background: none; padding: 0; }
+  .cover { text-align: center; padding: 60px 0 40px; border-bottom: 3px solid var(--head); margin-bottom: 30px; }
+  .cover h1 { font-size: 34px; margin: 10px 0; }
+  .cover .sub { font-family: Arial, sans-serif; color: var(--muted); font-size: 16px; }
+  .fig { border: 2px dashed var(--line); background: #fafafa; text-align: center; color: var(--muted); padding: 50px 20px; margin: 16px 0 4px; font-family: Arial, sans-serif; font-size: 13px; }
+  .cap { text-align: center; font-size: 13px; color: var(--muted); font-style: italic; margin: 0 0 18px; }
+  .pb { page-break-before: always; }
+  h2, h3, table, pre, .fig { page-break-inside: avoid; page-break-after: avoid; }
+  @media print { body { padding: 0; } }
+</style>
+</head>
+<body>
+
+<div class="cover">
+  <div class="sub">Final Project Report</div>
+  <h1>ExpenseTracker</h1>
+  <div class="sub">A Full-Stack MERN Personal Expense &amp; Budget Management System</div>
+</div>
+
+<table>
+<tr><th style="width:30%">Project Title</th><td>ExpenseTracker — Personal Expense &amp; Budget Management System</td></tr>
+<tr><th>Submitted By</th><td>Sharma Saurabh</td></tr>
+<tr><th>Roll Number</th><td>250863131007</td></tr>
+<tr><th>Institute</th><td>Laxmi Institute of Technology (LIT), Sarigam — Laxmi Vidyapeeth</td></tr>
+<tr><th>Department</th><td>Computer Science &amp; Engineering</td></tr>
+<tr><th>University</th><td>Gujarat Technological University (GTU)</td></tr>
+<tr><th>Project Guide</th><td>X</td></tr>
+<tr><th>Academic Year</th><td>2025–2026</td></tr>
+<tr><th>Report Date</th><td>08 October 2026</td></tr>
+</table>
+
+<h2 class="pb">Abstract</h2>
+<p>Managing personal money with notebooks or scattered spreadsheets is slow, error-prone and gives no real picture of spending habits. ExpenseTracker is a web application built on the MERN stack (MongoDB, Express.js, React.js, Node.js) that lets a user record income and expenses, organise them into categories, set monthly budgets, track savings goals, automate recurring payments and understand spending through charts and monthly reports.</p>
+<p>The system uses a REST API with JWT authentication, a Redux Toolkit powered React front end, and MongoDB for storage. Beyond basic CRUD, it provides smart de-duplicated notifications, month-over-month reports, CSV export, receipt uploads, tags, favorites, light/dark mode and eight selectable colour themes. All data is strictly per-user and validated on both client and server.</p>
+
+<h2>Table of Contents</h2>
+<ol>
+<li>Introduction</li><li>Objectives</li><li>Technology Stack</li><li>System Design</li><li>Database Design</li><li>Modules &amp; Features</li><li>API Reference</li><li>User Interface</li><li>Implementation Highlights</li><li>Security &amp; Validation</li><li>Testing</li><li>Challenges &amp; Solutions</li><li>Limitations</li><li>Future Scope</li><li>Conclusion</li><li>How to Run</li><li>Appendix — Environment Variables</li>
+</ol>
+
+<h2 class="pb">1. Introduction</h2>
+<h3>1.1 Background</h3>
+<p>Most people know roughly what they earn but not where it goes. Tracking every expense by hand is tedious, and existing apps are often cluttered, ad-driven or locked behind subscriptions. A simple, private, self-hosted tracker solves this for students and individuals.</p>
+<h3>1.2 Problem Statement</h3>
+<p>There is a need for a lightweight web application that lets a user record transactions quickly, stay within monthly budgets, work towards savings goals, and see clear analytics — without relying on third-party services.</p>
+<h3>1.3 Proposed Solution</h3>
+<p>ExpenseTracker provides a single dashboard for all of this. Users register, add categories and transactions, set per-category monthly budgets, create savings goals and recurring expenses, and view analytics and monthly reports. The application runs locally with two commands and needs no external APIs.</p>
+<h3>1.4 Scope</h3>
+<p>The project covers authentication, transaction management, categories, budgets, savings goals, recurring expenses, analytics, reports, notifications, CSV export, receipt upload and appearance customisation. Bank integration and mobile apps are outside the current scope.</p>
+
+<h2>2. Objectives</h2>
+<ol>
+<li>Build a full-stack application covering the complete finance workflow: transactions → budgets → goals → reports.</li>
+<li>Provide secure user accounts where each user can only access their own data.</li>
+<li>Give meaningful insight through interactive charts and month-over-month comparison.</li>
+<li>Warn users automatically when budgets are nearly or fully used.</li>
+<li>Offer a clean, consistent and accessible interface with light/dark mode and selectable themes.</li>
+<li>Keep the code simple and modular: small single-purpose files and sequential <code>async/await</code> flow.</li>
+</ol>
+
+<h2>3. Technology Stack</h2>
+<table>
+<tr><th>Layer</th><th>Technology</th><th>Purpose</th></tr>
+<tr><td>Database</td><td>MongoDB (local)</td><td>Flexible document storage for finance records</td></tr>
+<tr><td>Backend</td><td>Node.js, Express.js</td><td>REST API</td></tr>
+<tr><td>ODM</td><td>Mongoose 8</td><td>Schemas, validation, references</td></tr>
+<tr><td>Frontend</td><td>React 18 (Vite)</td><td>Component-based SPA, fast dev server</td></tr>
+<tr><td>State</td><td>Redux Toolkit</td><td>Predictable state via slices</td></tr>
+<tr><td>Routing</td><td>React Router v6</td><td>Protected routes</td></tr>
+<tr><td>Charts</td><td>Recharts</td><td>Bar, line, area, pie and donut charts</td></tr>
+<tr><td>Styling</td><td>Tailwind CSS + CSS variables</td><td>Consistent styling, theming, dark mode</td></tr>
+<tr><td>HTTP</td><td>Axios</td><td>Central instance with auth/error interceptors</td></tr>
+<tr><td>Auth</td><td>JWT, bcryptjs</td><td>Stateless auth, hashed passwords</td></tr>
+<tr><td>Uploads</td><td>Multer</td><td>Receipt images (max 2 MB)</td></tr>
+<tr><td>Security</td><td>helmet, CORS allow-list</td><td>Secure headers, restricted origins</td></tr>
+<tr><td>Feedback</td><td>react-hot-toast</td><td>Success/error toasts</td></tr>
+</table>
+<p>Backend runs on port <code>5000</code> and frontend on <code>5173</code>; the Vite dev server proxies <code>/api</code> and <code>/uploads</code> to the backend.</p>
+
+<h2 class="pb">4. System Design</h2>
+<h3>4.1 Architecture</h3>
+<p>ExpenseTracker follows a three-tier client–server architecture: a React single-page application, an Express REST API, and a MongoDB database.</p>
+<p><strong>Data flow:</strong> Page → Redux slice → <code>services/api.js</code> (Axios + JWT header) → Express route → controller → Mongoose model → MongoDB → JSON response → slice state → UI and charts.</p>
+<h3>4.2 Project Structure</h3>
+<pre><code>ExpenseTracker/
+├── server/
+│   └── src/
+│       ├── config/env.js        # only file reading process.env
+│       ├── models/              # 7 Mongoose models
+│       ├── middleware/          # auth (JWT), error, upload (Multer)
+│       ├── utils/               # notify, processRecurring, buildCsv, sanitize
+│       ├── controllers/         # 8 controllers
+│       ├── routes/              # 8 routers (40 endpoints)
+│       ├── seed/seed.js         # demo data
+│       └── app.js, server.js
+└── client/
+    └── src/
+        ├── config/env.js        # only file reading import.meta.env
+        ├── themes/              # 8 theme files + registry
+        ├── features/            # 8 Redux slices + store
+        ├── services/api.js      # Axios instance + interceptors
+        ├── layout/              # Sidebar, Navbar, MainLayout
+        ├── common/              # Modal, EmptyState, Skeletons, charts
+        ├── pages/               # 11 pages
+        └── index.css            # CSS variables + component classes</code></pre>
+
+<h2>5. Database Design</h2>
+<table>
+<tr><th>Collection</th><th>Key fields</th></tr>
+<tr><td><strong>User</strong></td><td>name, email (unique), password (bcrypt hash), currency, monthlyIncome, theme preferences</td></tr>
+<tr><td><strong>Category</strong></td><td>user, name, type (income/expense), icon, color</td></tr>
+<tr><td><strong>Transaction</strong></td><td>user, type, amount, category (ref), description, date, paymentMethod, tags[], receipt, favorite, notes, isRecurring, recurringExpense</td></tr>
+<tr><td><strong>Budget</strong></td><td>user, category (ref), amount, month, year</td></tr>
+<tr><td><strong>SavingsGoal</strong></td><td>user, title, targetAmount, currentAmount, targetDate, icon</td></tr>
+<tr><td><strong>RecurringExpense</strong></td><td>user, title, amount, category, frequency, nextDate, paymentMethod, active</td></tr>
+<tr><td><strong>Notification</strong></td><td>user, type, title, message, key (for de-duplication), read</td></tr>
+</table>
+<p>Finance collections are indexed on <code>user</code> with date or month/year for fast aggregation. Every query filters by the logged-in user's id, so users can never see each other's data.</p>
+
+<h2 class="pb">6. Modules &amp; Features</h2>
+<table>
+<tr><th>#</th><th>Module</th><th>Description</th></tr>
+<tr><td>1</td><td>Authentication</td><td>Register, login, fetch current user, update profile (name, currency, monthly income target)</td></tr>
+<tr><td>2</td><td>Dashboard</td><td>Total balance, monthly income/expense, category donut, budget status bars, recent transactions</td></tr>
+<tr><td>3</td><td>Transactions</td><td>Add/edit/delete income and expenses; search, pagination; filters by date range, category, type, payment method, amount range and favorites; tags</td></tr>
+<tr><td>4</td><td>Categories</td><td>Custom categories with icon and colour; separate income and expense types; deletion blocked when used by a recurring expense</td></tr>
+<tr><td>5</td><td>Budgets</td><td>Per-category monthly limits with progress bars and on-track / near-limit / over-budget status</td></tr>
+<tr><td>6</td><td>Savings Goals</td><td>Target vs current amount, add-money contributions, progress percentage</td></tr>
+<tr><td>7</td><td>Recurring Expenses</td><td>Monthly payments with active toggle; due items are posted automatically as real transactions</td></tr>
+<tr><td>8</td><td>Analytics</td><td>Income vs expense by month, spending by category, payment-method split; switch between Bar, Line, Area, Donut and Pie charts</td></tr>
+<tr><td>9</td><td>Monthly Reports</td><td>Month navigator, month-over-month insight banner, six-month chart, category table with change %, top categories</td></tr>
+<tr><td>10</td><td>Notifications</td><td>Budget warning (≥80%), budget exceeded (≥100%), goal milestones, recurring-due and welcome alerts, de-duplicated by a unique key</td></tr>
+<tr><td>11</td><td>CSV Export</td><td>Downloads filtered transactions as a date-stamped CSV</td></tr>
+<tr><td>12</td><td>Receipts &amp; Favorites</td><td>Attach an image (≤2 MB) to a transaction with preview; star frequent transactions</td></tr>
+<tr><td>13</td><td>Appearance</td><td>Light/dark mode and eight themes, saved in the browser</td></tr>
+</table>
+
+<h2>7. API Reference (40 endpoints)</h2>
+<table>
+<tr><th>Router</th><th>Endpoints</th></tr>
+<tr><td><code>/api/auth</code></td><td>POST /register, POST /login, GET /me, PUT /profile</td></tr>
+<tr><td><code>/api/transactions</code></td><td>GET /, POST /, GET /:id, PUT /:id, DELETE /:id, GET /csv, GET /favorites, PATCH /:id/favorite, PATCH /:id/receipt</td></tr>
+<tr><td><code>/api/categories</code></td><td>GET /, POST /, PUT /:id, DELETE /:id</td></tr>
+<tr><td><code>/api/budgets</code></td><td>GET /, POST /, PUT /:id, DELETE /:id</td></tr>
+<tr><td><code>/api/goals</code></td><td>GET /, POST /, PUT /:id, DELETE /:id, POST /:id/add-money</td></tr>
+<tr><td><code>/api/recurring-expenses</code></td><td>GET /, POST /, PUT /:id, DELETE /:id, PATCH /:id/toggle</td></tr>
+<tr><td><code>/api/analytics</code></td><td>GET /dashboard, /monthly, /categories, /payment-methods, /reports</td></tr>
+<tr><td><code>/api/notifications</code></td><td>GET /, PATCH /read-all, PATCH /:id/read, DELETE /:id</td></tr>
+</table>
+
+<h2 class="pb">8. User Interface</h2>
+<h3>8.1 Design System</h3>
+<p>The default theme uses a warm white background with espresso brown and sage green accents. All colours are CSS variables (<code>--bg</code>, <code>--text</code>, <code>--card</code>, <code>--primary</code>, <code>--accent</code>, …) defined for both light and dark mode, so changing theme or mode only swaps variables and no component needs colour logic. The full interface uses the JetBrains Mono typeface.</p>
+<table>
+<tr><th>Token</th><th>Hex</th><th>Usage</th></tr>
+<tr><td>Background</td><td><code>#FAF8F3</code></td><td>Page background</td></tr>
+<tr><td>Text</td><td><code>#29231F</code></td><td>Primary text</td></tr>
+<tr><td>Primary (Espresso)</td><td><code>#493B32</code></td><td>Buttons, active states</td></tr>
+<tr><td>Accent (Sage)</td><td><code>#78816A</code></td><td>Charts, highlights</td></tr>
+<tr><td>Sage tint</td><td><code>#E9EDE4</code></td><td>Sidebar, soft panels</td></tr>
+<tr><td>Beige tint</td><td><code>#E9DFD1</code></td><td>Balance and stat cards</td></tr>
+</table>
+<h3>8.2 Theme Engine</h3>
+<p>Each of the eight themes lives in its own file under <code>client/src/themes/</code>, with a small registry exposing <code>getTheme()</code> and <code>applyTheme()</code>. The choice is made under Profile → Appearance and persisted in <code>localStorage</code>. Dark mode is an independent toggle available in the navbar.</p>
+<h3>8.3 Interaction &amp; Accessibility</h3>
+<p>Transitions (150–250 ms) are pure CSS: hover lift, modal fade, progress-bar fill, skeleton shimmer and a flash on newly added rows. Modals close with Escape, inputs are labelled, and focus outlines are visible. Amount inputs accept only digits, one dot and two decimals. Every page has loading skeletons and a friendly empty state.</p>
+
+<h3 class="pb">8.4 Screenshots</h3>
+<p><em>Insert your own screenshots in the boxes below (replace each box with an &lt;img&gt; tag).</em></p>
+<div class="fig">Screenshot: Login page</div><p class="cap">Figure 1 — Login</p>
+<div class="fig">Screenshot: Dashboard</div><p class="cap">Figure 2 — Dashboard with balance, charts and budget status</p>
+<div class="fig">Screenshot: Transactions list and Add Transaction modal</div><p class="cap">Figure 3 — Transactions</p>
+<div class="fig">Screenshot: Budgets</div><p class="cap">Figure 4 — Monthly budgets</p>
+<div class="fig">Screenshot: Analytics (Bar and Line views)</div><p class="cap">Figure 5 — Analytics with chart-type selector</p>
+<div class="fig">Screenshot: Monthly Report</div><p class="cap">Figure 6 — Monthly report with month-over-month insight</p>
+<div class="fig">Screenshot: Goals, Recurring and Categories</div><p class="cap">Figure 7 — Savings goals, recurring expenses and categories</p>
+<div class="fig">Screenshot: Theme selector and dark mode</div><p class="cap">Figure 8 — Appearance settings and dark mode</p>
+
+<h2 class="pb">9. Implementation Highlights</h2>
+<h3>9.1 Recurring Auto-Posting</h3>
+<p>When the app loads, every active recurring item whose <code>nextDate</code> is today or earlier is converted into a real transaction, its next due date is advanced, and a notification is created.</p>
+<pre><code>const dueItems = await RecurringExpense.find({
+  user: userId, active: true, nextDate: { $lte: today },
+});
+for (const item of dueItems) {
+  await Transaction.create({ user: userId, type: 'expense',
+    amount: item.amount, category: item.category,
+    description: item.title, date: item.nextDate,
+    paymentMethod: item.paymentMethod, isRecurring: true,
+    recurringExpense: item._id });
+  item.nextDate = nextDateAfter(item.nextDate, item.frequency);
+  await item.save();
+}</code></pre>
+<h3>9.2 Smart Notifications with De-duplication</h3>
+<p>Each alert carries a stable key such as <code>budget:2026:10:Food:warn</code>. Before creating a notification, the server checks whether that key already exists, so the same warning never repeats.</p>
+<pre><code>const createOnce = async (userId, type, title, message, key) =&gt; {
+  const alreadySent = await Notification.findOne({ user: userId, key });
+  if (alreadySent) return;
+  await Notification.create({ user: userId, type, title, message, key });
+};</code></pre>
+<h3>9.2.1 Dashboard and Report Aggregation</h3>
+<p>Totals, monthly series and category breakdowns are computed with MongoDB aggregation pipelines (<code>$match</code> by user and date, then <code>$group</code>), executed with sequential <code>await</code> calls for readability.</p>
+<h3>9.3 Amount Validation</h3>
+<p>The client strips invalid characters while typing and limits to two decimals; the server independently converts and validates the amount and returns HTTP 400 for values such as <code>abc</code>, <code>-5</code> or <code>0</code>.</p>
+<h3>9.4 Chart Selector</h3>
+<p>The analytics data stays loaded while only the chart component changes, so switching between Bar, Line, Area, Donut and Pie is instant.</p>
+<h3>9.5 CSV Export</h3>
+<p><code>GET /api/transactions/csv</code> applies the same filters as the list and returns a <code>text/csv</code> response with a date-stamped filename.</p>
+
+<h2>10. Security &amp; Validation</h2>
+<ol>
+<li>Passwords are hashed with bcrypt (10 rounds) and never returned by the API.</li>
+<li>JWT with configurable expiry is sent as an <code>Authorization: Bearer</code> header; the Axios interceptor attaches it and clears it on failure.</li>
+<li>Ownership checks: every find, update and delete includes the logged-in user's id.</li>
+<li>Server-side validation through a <code>sanitize.js</code> helper returns 400 with clear messages for invalid amounts, empty titles and bad enum values.</li>
+<li>helmet security headers and a CORS allow-list.</li>
+<li>Multer restricts uploads to image MIME types up to 2 MB.</li>
+<li>All environment variables are read in exactly two files; secrets stay in a git-ignored <code>.env</code>.</li>
+</ol>
+
+<h2>11. Testing</h2>
+<table>
+<tr><th>Area</th><th>Test</th><th>Result</th></tr>
+<tr><td>Auth</td><td>Register, login, get current user</td><td>Pass (200)</td></tr>
+<tr><td>Dashboard</td><td>Summary aggregation</td><td>Pass (200)</td></tr>
+<tr><td>Reports</td><td>Month-over-month, categories, payment methods</td><td>Pass (200)</td></tr>
+<tr><td>CRUD</td><td>Transactions, budgets, goals, recurring, categories</td><td>Pass (200)</td></tr>
+<tr><td>CSV</td><td>Export endpoint</td><td>Valid CSV stream</td></tr>
+<tr><td>Validation</td><td>Amount <code>abc</code>, <code>-5</code>; budget <code>0</code></td><td>Rejected with 400</td></tr>
+<tr><td>Validation</td><td>Amount <code>123.456</code></td><td>Stored as 123.46</td></tr>
+<tr><td>Categories</td><td>Delete category used by a recurring expense</td><td>Blocked</td></tr>
+<tr><td>Frontend</td><td><code>npm run build</code></td><td>Success (948 modules)</td></tr>
+<tr><td>Seeding</td><td>Demo and Saurabh users with data</td><td>Verified</td></tr>
+</table>
+
+<h2>12. Challenges &amp; Solutions</h2>
+<table>
+<tr><th>Challenge</th><th>Solution</th></tr>
+<tr><td>MongoDB error “field must be an accumulator object” in <code>$group</code></td><td>Used accumulators such as <code>{ $first: '$name' }</code> for non-<code>_id</code> fields in three pipelines</td></tr>
+<tr><td>Custom <code>.table-row</code> class clashed with Tailwind's <code>display: table-row</code></td><td>Renamed the component class to <code>.row-hover</code></td></tr>
+<tr><td>Amount fields accepted letters, negatives and extra decimals</td><td>Added <code>sanitizeAmountInput</code> on the client and <code>toAmount</code> on the server</td></tr>
+<tr><td>Port conflicts (<code>EADDRINUSE</code>) on restart</td><td>One dev process per port, ports defined in <code>.env</code></td></tr>
+<tr><td>Environment variables scattered across files</td><td>Restricted raw access to two config files</td></tr>
+</table>
+
+<h2>13. Limitations</h2>
+<ul>
+<li>Recurring expenses are posted only when the app is opened, not by a background scheduler.</li>
+<li>The production build shows a chunk-size warning (&gt;500 kB) because Recharts bundles all chart types.</li>
+<li>Only monthly frequency and a single currency per user are supported.</li>
+<li>No automated test suite yet; testing was done manually and with API calls.</li>
+</ul>
+
+<h2>14. Future Scope</h2>
+<ol>
+<li>Cron scheduler (node-cron) to post recurring expenses without opening the app.</li>
+<li>Monthly report emails and budget breach push/email alerts.</li>
+<li>Bank statement (CSV/OFX) import and receipt OCR.</li>
+<li>Smart features: automatic category suggestion, anomaly detection and month-end forecasting.</li>
+<li>Multi-currency support and shared/family budgets.</li>
+<li>PWA with offline mode and a React Native mobile app using the same API.</li>
+<li>Rate limiting, refresh-token rotation and an audit log for transactions.</li>
+<li>Jest + Supertest API tests, CI/CD, and route-level code splitting.</li>
+</ol>
+
+<h2>15. Conclusion</h2>
+<p>ExpenseTracker delivers an end-to-end MERN application that covers the full personal-finance workflow — transactions, budgets, savings goals, recurring payments, analytics and reports — with secure per-user data, validation on both client and server, and a themeable, accessible interface. The modular code structure keeps the project easy to understand, maintain and extend, and the future-scope items provide a clear path for growth.</p>
+
+<h2>16. How to Run</h2>
+<p>Prerequisites: Node.js 18 or later and MongoDB running locally on port 27017.</p>
+<pre><code># Backend
+cd server
+npm install
+cp .env.example .env
+npm run seed      # creates demo data
+npm run dev       # http://localhost:5000
+
+# Frontend (new terminal)
+cd client
+npm install
+npm run dev       # http://localhost:5173</code></pre>
+<p>Demo logins: <code>demo@example.com</code> / <code>password123</code> (31 transactions, 5 budgets, 5 recurring expenses, 3 goals) and <code>saurabh@gmail.com</code> / <code>saurabh123</code> (18 transactions, 3 budgets, 3 recurring expenses, 3 goals).</p>
+
+<h2>Appendix — Environment Variables</h2>
+<p><strong>server/.env</strong></p>
+<pre><code>PORT=5000
+MONGODB_URI=mongodb://127.0.0.1:27017/expenseTracker
+JWT_SECRET=&lt;your-secret&gt;
+JWT_EXPIRES_IN=7d
+CLIENT_URL=http://localhost:5173</code></pre>
+<p><strong>client/.env</strong></p>
+<pre><code>VITE_API_BASE_URL=/api
+VITE_APP_NAME=ExpenseTracker
+VITE_APP_TAGLINE=Track every rupee
+VITE_REQUEST_TIMEOUT=15000</code></pre>
+
+</body>
+</html>

@@ -1,0 +1,16 @@
+{
+  "name": "expense-tracker-report-tools",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "screenshots": "node scripts/take-screenshots.js",
+    "code-screenshots": "node scripts/code-screenshots.js",
+    "report-html": "node scripts/make-report-html.js",
+    "report-pdf": "node scripts/make-pdf.js"
+  },
+  "dependencies": {
+    "highlight.js": "^11.10.0",
+    "marked": "^14.1.4",
+    "playwright": "^1.48.0"
+  }
+}
